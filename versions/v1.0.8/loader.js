@@ -5,7 +5,7 @@
 (function(window, document) {
   'use strict';
   
-  const CDN_BASE = 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1';
+  const CDN_BASE = 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.8';
   const PREACT_URL = 'https://cdn.jsdelivr.net/npm/preact@10.26.9/dist/preact.min.js';
   const TIMEOUT = 10000;
   

@@ -93,9 +93,28 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 <script>
   window.iSalesWidget = window.iSalesWidget || [];
   window.iSalesWidget.push(['init', {
-    apiKey: 'YOUR_API_KEY',      // ← Get yours at isales.ai
-    position: 'bottom-right',    // Choose your corner
-    theme: 'light'                // Matches your brand
+    // Required
+    apiKey: 'YOUR_API_KEY',                    // ← Get yours at isales.ai
+    
+    // UI Configuration
+    position: 'bottom-right',                  // 'bottom-right' | 'bottom-left'
+    theme: 'light',                           // 'light' | 'dark' | 'auto'
+    primaryColor: '#000000',                  // Hex color for branding
+    locale: 'en-US',                          // Language locale (en-US, es-ES, fr-FR, etc.)
+    
+    // Social Media Integration (optional)
+    instagram: 'https://instagram.com/yourhandle',     // Instagram profile URL with iSales AI Chatbot Agent
+    telegram: 'https://t.me/yourusername',             // Telegram chat URL with iSales AI Chatbot Agent
+    whatsapp: 'https://wa.me/1234567890',              // WhatsApp number URL with iSales AI Chatbot Agent
+    
+    // AI Voice Integration (optional)
+    elevenlabs_agent_id: 'your-agent-id',             // ElevenLabs AI agent ID
+    
+    // Calendar Integration (optional - choose one)
+    calendar_embedding_link: 'https://calendly.com/yourlink',  // Calendly/Cal.com URL
+    
+    // Google Calendar Integration (optional)
+    calendar_embedding_code: '<iframe src="..."></iframe>',  // Use and embed custom calendar HTML for Google Calendar or anything else
   }]);
 </script>
 <script async src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
@@ -128,15 +147,15 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 ### 📌 Version-Specific (Pinned)
 
 #### JSDelivr
-- **v1.0.7**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.7/loader.js`
+- **v1.0.8**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.8/loader.js`
 - **Minor v1.0**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/loader.js`
 
 #### Statically  
-- **v1.0.7**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.7/loader.js`
+- **v1.0.8**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.8/loader.js`
 - **Minor v1.0**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 #### GitHack
-- **v1.0.7**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.7/loader.js`
+- **v1.0.8**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.8/loader.js`
 - **Minor v1.0**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 ### 🔄 CDN Comparison
@@ -163,7 +182,7 @@ Choose the right CDN for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.7/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.8/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -174,12 +193,56 @@ Choose the right CDN for your use case:
 
 ## ⚙️ Configuration
 
+### 📋 Complete Configuration Options
+
+```javascript
+window.iSalesWidget.push(['init', {
+  // Required
+  apiKey: 'your-api-key',                     // Your iSales.ai API key
+  
+  // UI Configuration
+  position: 'bottom-right',                   // 'bottom-right' | 'bottom-left'
+  theme: 'light',                            // 'light' | 'dark' | 'auto'
+  primaryColor: '#000000',                   // Hex color for branding
+  locale: 'en-US',                           // Language locale (en-US, es-ES, fr-FR, etc.)
+  
+  // Social Media Integration (optional)
+  instagram: 'https://instagram.com/yourhandle',       // Instagram profile URL
+  telegram: 'https://t.me/yourusername',               // Telegram chat URL  
+  whatsapp: 'https://wa.me/1234567890',                // WhatsApp number URL
+  
+  // AI Voice Integration (optional)
+  elevenlabs_agent_id: 'your-agent-id',               // ElevenLabs AI agent ID
+  
+  // Calendar Integration (optional - choose one)
+  calendar_embedding_link: 'https://calendly.com/yourlink',    // Calendly/Cal.com URL
+  calendar_embedding_code: '<iframe src="..."></iframe>',      // Custom calendar HTML
+}]);
+```
+
+### 🎯 Quick Start (Minimal)
+
 ```javascript
 window.iSalesWidget.push(['init', {
   apiKey: 'your-api-key',
-  position: 'bottom-right',  // bottom-left, top-right, top-left
-  theme: 'light',             // light, dark, auto
-  primaryColor: '#000000',
+  position: 'bottom-right',
+  theme: 'light'
+}]);
+```
+
+### 🚀 Production Ready (Full Features)
+
+```javascript
+window.iSalesWidget.push(['init', {
+  apiKey: 'your-api-key',
+  position: 'bottom-right',
+  theme: 'auto',
+  primaryColor: '#4f46e5',
+  locale: 'en-US',
+  whatsapp: 'https://wa.me/1234567890',
+  telegram: 'https://t.me/yoursupport',
+  calendar_embedding_link: 'https://calendly.com/yourteam',
+  elevenlabs_agent_id: 'agent-xyz123'
 }]);
 ```
 
@@ -210,7 +273,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.7 (2025-06-23)
+- **Latest Release**: v1.0.8 (2025-06-23)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
