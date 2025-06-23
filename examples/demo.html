@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>iSales Widget Demo v1.0.6</title>
+    <title>AI Website Widget Demo - Convert Visitors to Sales | iSales.ai</title>
+    <meta name="description" content="See how our AI widget captures leads with instant chat, voice calls, and scheduling. Convert 38% more visitors into customers. Try the live demo now!">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -59,21 +60,50 @@
 </head>
 <body>
     <div class="header">
-        <h1>🤖 iSales Widget Demo</h1>
-        <p>Test the iSales AI Chatbot Widget v1.0.6. The widget should appear in the bottom-right corner.</p>
+        <h1>🚀 AI Widget Demo - See It Convert!</h1>
+        <p><strong>Stop Losing Visitors. Start Closing Deals.</strong><br>
+        Test our AI-powered widget v1.0.7 that turns every visitor into a potential customer. Look for the widget in the bottom-right corner!</p>
+        
+        <div style="margin: 1.5rem 0;">
+            <a href="https://isales.ai" target="_blank" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0.5rem;">
+                🌐 Get Your Free Widget at iSales.ai
+            </a>
+        </div>
+        
+        <div style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+            <img src="https://img.shields.io/badge/version-v1.0.7-blue" alt="Version">
+            <img src="https://img.shields.io/badge/bundle%20size-%3C50KB-success" alt="Bundle Size">
+            <img src="https://img.shields.io/badge/CDN-JSDelivr-ff5722" alt="JSDelivr CDN">
+            <img src="https://img.shields.io/badge/AI%20Powered-Voice%20%2B%20Chat-purple" alt="AI Features">
+            <img src="https://img.shields.io/badge/Framework-Preact%2010.x-673AB7" alt="Preact">
+        </div>
+        
+        <p style="color: #64748b; font-size: 0.9rem;">
+            ⚡ <strong>38% More Leads</strong> • 
+            📞 <strong>Voice Calls in 10s</strong> • 
+            📅 <strong>Auto-Scheduling</strong> • 
+            🔒 <strong>Enterprise Security</strong>
+        </p>
     </div>
     
     <div class="demo-controls">
-        <h3>Widget Controls</h3>
-        <button onclick="window.iSalesWidget.push(['open'])">📱 Open Widget</button>
-        <button onclick="window.iSalesWidget.push(['close'])">❌ Close Widget</button>
-        <button onclick="window.iSalesWidget.push(['toggle'])">🔄 Toggle Widget</button>
-        <button onclick="window.iSalesWidget.push(['sendMessage', 'Hello from demo!'])">💬 Send Test Message</button>
+        <h3>🎮 Test Drive Your Future Sales Machine</h3>
+        <p style="color: #64748b; margin-bottom: 1rem;">See how the widget engages visitors and captures leads instantly:</p>
+        <button onclick="window.iSalesWidget.push(['open'])">🚀 Start Conversation</button>
+        <button onclick="window.iSalesWidget.push(['sendMessage', 'I want to book a demo!'])">📅 Test Auto-Booking</button>
+        <button onclick="window.iSalesWidget.push(['sendMessage', 'Tell me about pricing'])">💰 Pricing Inquiry</button>
+        <button onclick="window.iSalesWidget.push(['toggle'])">⚡ Quick Toggle</button>
+        
+        <div style="margin-top: 1rem; padding: 1rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+            <p style="margin: 0; font-size: 0.9rem; color: #0369a1;">
+                <strong>💡 Pro Tip:</strong> In real usage, the AI automatically qualifies leads and schedules calls with your hottest prospects!
+            </p>
+        </div>
     </div>
 
     <div class="demo-controls">
         <h3>📋 Integration Code</h3>
-        <p>Copy this code to integrate the widget into your website:</p>
+        <p><strong>Basic Integration:</strong></p>
         <div class="integration-code">
 &lt;script&gt;<br>
 &nbsp;&nbsp;window.iSalesWidget = window.iSalesWidget || [];<br>
@@ -85,28 +115,71 @@
 &lt;/script&gt;<br>
 &lt;script async src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"&gt;&lt;/script&gt;
         </div>
+
+        <p><strong>Production with CDN Fallback:</strong></p>
+        <div class="integration-code">
+&lt;script&gt;<br>
+&nbsp;&nbsp;window.iSalesWidget = window.iSalesWidget || [];<br>
+&nbsp;&nbsp;window.iSalesWidget.push(['init', {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;apiKey: 'YOUR_API_KEY',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;theme: 'auto'<br>
+&nbsp;&nbsp;}]);<br>
+<br>
+&nbsp;&nbsp;// CDN fallback for production reliability<br>
+&nbsp;&nbsp;(function() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const cdns = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/loader.js',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let currentCdn = 0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;function loadFromCdn() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentCdn >= cdns.length) return;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const script = document.createElement('script');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;script.async = true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;script.src = cdns[currentCdn];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;script.onerror = () => { currentCdn++; loadFromCdn(); };<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.head.appendChild(script);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loadFromCdn();<br>
+&nbsp;&nbsp;})();<br>
+&lt;/script&gt;
+        </div>
     </div>
     
     <div class="version-info">
-        <p><strong>Widget Version:</strong> v1.0.6</p>
-        <p><strong>CDN:</strong> JSDelivr</p>
-        <p><strong>Repository:</strong> iSales-AI/isales-widget</p>
-        <p><strong>Generated:</strong> 2025-06-23T13:15:38.070Z</p>
+        <h4 style="margin-top: 0; color: #1e293b;">🚀 Ready to Deploy Your Sales Machine?</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+            <div>
+                <p><strong>✅ Latest Version:</strong> v1.0.7</p>
+                <p><strong>⚡ Load Time:</strong> < 2 seconds</p>
+                <p><strong>🌐 Global CDN:</strong> 99.9% uptime</p>
+            </div>
+            <div>
+                <p><strong>📈 Avg. Conversion Lift:</strong> +40%</p>
+                <p><strong>🎯 Lead Capture Rate:</strong> +38%</p>
+                <p><strong>💰 ROI:</strong> 15x investment</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="https://isales.ai" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                🚀 Get Your Free Widget Now
+            </a>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+            No credit card required • Deploy in 60 seconds • Cancel anytime
+        </p>
     </div>
     
     <script>
         // Initialize widget with demo configuration
         window.iSalesWidget = window.iSalesWidget || [];
         window.iSalesWidget.push(['init', {
-            apiKey: 'demo-key-v1-0-6',
+            apiKey: 'demo-key-v1-0-7',
             position: 'bottom-right',
-            theme: 'auto',
-            primaryColor: '#3047ec',
-            user: {
-                id: 'demo-user',
-                name: 'Demo User',
-                email: 'demo@example.com'
-            }
+            theme: 'light'
         }]);
     </script>
     <script async src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
