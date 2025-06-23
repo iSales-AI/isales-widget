@@ -1,0 +1,15 @@
+{
+  "version": "1.0.6",
+  "majorVersion": "1",
+  "minorVersion": "1.0",
+  "generated": "2025-06-23T13:15:38.067Z",
+  "cdn": {
+    "jsdelivr": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.6/loader.js",
+    "github": "https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.6/loader.js"
+  },
+  "files": [
+    "loader.js",
+    "widget.js",
+    "widget.css"
+  ]
+}
