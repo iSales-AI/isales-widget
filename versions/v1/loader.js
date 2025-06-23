@@ -1,5 +1,5 @@
 /**
- * iSales Widget Loader v1.0.8
+ * iSales Widget Loader v1.0.9
  * Public CDN Distribution - Auto-generated
  */
 (function(window, document) {
@@ -97,7 +97,7 @@
     close: function() { console.warn('Widget not loaded yet'); },
     toggle: function() { console.warn('Widget not loaded yet'); },
     sendMessage: function() { console.warn('Widget not loaded yet'); },
-    _version: '1.0.8'
+    _version: '1.0.9'
   };
   
   // Initialize global API
