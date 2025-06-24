@@ -1,12 +1,12 @@
 /**
- * iSales Widget Loader v1.0.18
+ * iSales Widget Loader v1.0.19
  * Public CDN Distribution
  */
 (function(window, document) {
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.18',
+    VERSION: '1.0.19',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css',
     TIMEOUT: 15000,
@@ -362,49 +362,257 @@
       const style = document.createElement('style');
       style.id = 'isales-critical-css';
       style.textContent = `
-        /* Widget-scoped critical CSS - will NOT affect host page */
+        /* Widget-scoped critical CSS - Comprehensive floating button support */
         #isales-widget-root {
-          /* Critical theme variables */
+          /* Critical positioning and isolation */
+          position: fixed !important;
+          z-index: 999999 !important;
+          isolation: isolate !important;
+          transform: none !important;
+          filter: none !important;
+          backdrop-filter: none !important;
+          clip-path: none !important;
+          mask: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          box-sizing: border-box !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          background: transparent !important;
+          outline: none !important;
+
+          /* Essential Brand Colors */
+          --isw-brand-primary: #0057ff;
+          --isw-brand-secondary: #10b981;
+          --isw-brand-accent: #ffc421;
+
+          /* Surface Colors - Light Mode */
           --isw-surface-primary: #ffffff;
-          --isw-text-primary: #1f2937;
-          --isw-brand-primary: #3047ec;
-          --isw-interactive-primary: #0057ff;
-          --isw-interactive-primary-hover: #2640cc;
-          --isw-interactive-danger: #ef4444;
+          --isw-surface-secondary: #f9fafb;
           --isw-surface-tertiary: #f3f4f6;
+          --isw-surface-elevated: #ffffff;
+          --isw-surface-overlay: rgba(255, 255, 255, 0.95);
+
+          /* Text Colors */
+          --isw-text-primary: #1f2937;
+          --isw-text-secondary: #6b7280;
+          --isw-text-tertiary: #9ca3af;
           --isw-text-inverse: #ffffff;
-          
-          /* Essential floating button variables */
+          --isw-text-accent: var(--isw-brand-primary);
+          --isw-text-muted: #737376;
+
+          /* Border Colors */
+          --isw-border-subtle: #e5e7eb;
+          --isw-border-default: #d1d5db;
+          --isw-border-strong: #9ca3af;
+
+          /* Interactive Colors - CRITICAL for floating button */
+          --isw-interactive-primary: var(--isw-brand-primary);
+          --isw-interactive-primary-hover: #2640cc;
+          --isw-interactive-secondary: var(--isw-brand-secondary);
+          --isw-interactive-secondary-hover: #059669;
+          --isw-interactive-danger: #ef4444;
+          --isw-interactive-danger-hover: #dc2626;
+          --isw-interactive-success: #10b981;
+          --isw-interactive-warning: #f59e0b;
+
+          /* Shadow System */
+          --isw-shadow-color: rgba(0, 0, 0, 0.1);
+          --isw-shadow-color-prominent: rgba(26, 26, 26, 0.12);
+          --isw-shadow-subtle: 0 1px 2px var(--isw-shadow-color);
+          --isw-shadow-default: 0 4px 6px -1px var(--isw-shadow-color);
+          --isw-shadow-prominent: 0 10px 15px -3px var(--isw-shadow-color);
+          --isw-shadow-floating: 0px 1px 6px 0px rgba(0, 0, 0, 0.06), 0px 2px 32px 0px rgba(0, 0, 0, 0.16);
+
+          /* Border Radius */
+          --isw-radius-sm: 0.375rem;
+          --isw-radius-md: 0.5rem;
+          --isw-radius-lg: 0.75rem;
+          --isw-radius-xl: 1rem;
+          --isw-radius-full: 9999px;
+          --isw-radius-button: 8px;
+
+          /* Typography */
+          --isw-font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+          /* Transitions - CRITICAL for animations */
+          --isw-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+          --isw-transition-normal: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          --isw-transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+          /* Floating Button Critical Variables */
           --isw-floating-size: 48px;
           --isw-floating-icon-size: 32px;
           --isw-floating-social-size: 48px;
           --isw-floating-social-icon-size: 24px;
           --isw-floating-bg-primary: var(--isw-interactive-primary);
+          --isw-floating-bg-secondary: var(--isw-interactive-secondary);
+          --isw-floating-bg-danger: var(--isw-interactive-danger);
           --isw-floating-hover-primary: var(--isw-interactive-primary-hover);
+          --isw-floating-hover-secondary: var(--isw-interactive-secondary-hover);
+          --isw-floating-hover-danger: var(--isw-interactive-danger-hover);
+          --isw-floating-text: var(--isw-text-inverse);
+          --isw-floating-shadow: var(--isw-shadow-floating);
+
+          /* Badge Variables */
           --isw-badge-bg: var(--isw-interactive-danger);
+          --isw-badge-text: var(--isw-text-inverse);
+          --isw-badge-border: var(--isw-surface-primary);
+
+          /* Tooltip Variables */
           --isw-tooltip-bg: var(--isw-surface-tertiary);
-          
-          /* Critical transitions */
-          --isw-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-          --isw-transition-normal: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          
-          /* Widget positioning and isolation */
-          position: fixed;
-          z-index: 999999;
-          isolation: isolate; /* Create new stacking context */
-          font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          --isw-tooltip-text: var(--isw-text-primary);
+          --isw-tooltip-shadow: var(--isw-shadow-prominent);
+
+          /* Base font properties */
+          font-family: var(--isw-font-family);
           font-size: 14px;
           line-height: 1.5;
           color: var(--isw-text-primary);
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Dark theme overrides */
         #isales-widget-root[data-theme="dark"] {
           --isw-surface-primary: #111827;
-          --isw-text-primary: #f9fafb;
+          --isw-surface-secondary: #1f2937;
           --isw-surface-tertiary: #374151;
+          --isw-text-primary: #f9fafb;
+          --isw-text-secondary: #d1d5db;
+          --isw-text-tertiary: #9ca3af;
           --isw-text-inverse: #111827;
+          --isw-border-subtle: #374151;
+          --isw-border-default: #4b5563;
+          --isw-shadow-color: rgba(0, 0, 0, 0.3);
+          --isw-tooltip-bg: #374151;
         }
+
+        /* CRITICAL: Floating Button Container */
+        .isw-floating-button-container {
+          position: fixed;
+          z-index: 999995;
+          transition: all var(--isw-transition-slow) ease-out;
+        }
+        .isw-floating-button-container-visible {
+          transform: scale(1);
+          opacity: 1;
+        }
+        .isw-floating-button-container-hidden {
+          transform: scale(0);
+          opacity: 0;
+        }
+        .isw-floating-button-bottom-right {
+          bottom: 24px;
+          right: 24px;
+        }
+        .isw-floating-button-bottom-left {
+          bottom: 24px;
+          left: 24px;
+        }
+
+        /* CRITICAL: Main Floating Button */
+        .isw-main-button {
+          width: var(--isw-floating-size);
+          height: var(--isw-floating-size);
+          border-radius: var(--isw-radius-full);
+          background-color: var(--isw-floating-bg-primary);
+          color: var(--isw-floating-text);
+          position: relative;
+          box-shadow: var(--isw-floating-shadow);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all var(--isw-transition-normal);
+          cursor: pointer;
+          border: none;
+          outline: none;
+        }
+        .isw-main-button:hover {
+          background-color: var(--isw-floating-hover-primary);
+          transform: scale(1.1);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15), 0px 8px 40px rgba(0, 0, 0, 0.25);
+        }
+        .isw-main-button:active {
+          transform: scale(0.95);
+        }
+
+        /* CRITICAL: Icon Animation System */
+        .isw-icon-animation-container {
+          position: relative;
+          width: var(--isw-floating-icon-size);
+          height: var(--isw-floating-icon-size);
+        }
+        .isw-main-icon, .isw-arrow-icon {
+          position: absolute;
+          inset: 0;
+          width: var(--isw-floating-icon-size);
+          height: var(--isw-floating-icon-size);
+          color: var(--isw-floating-text);
+          transition: all var(--isw-transition-slow);
+        }
+        .isw-main-icon-visible, .isw-arrow-icon-visible {
+          opacity: 1;
+          transform: rotate(0deg);
+        }
+        .isw-main-icon-hidden {
+          opacity: 0;
+          transform: rotate(90deg);
+        }
+        .isw-arrow-icon-hidden {
+          opacity: 0;
+          transform: rotate(-90deg);
+        }
+
+        /* CRITICAL: Unread Badge */
+        .isw-unread-badge {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: var(--isw-badge-bg);
+          color: var(--isw-badge-text);
+          border-radius: var(--isw-radius-full);
+          min-width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 700;
+          padding: 0 6px;
+          border: 2px solid var(--isw-badge-border);
+          box-shadow: var(--isw-shadow-default);
+          font-family: var(--isw-font-family);
+        }
+
+        /* CRITICAL: Social Media Buttons */
+        .isw-social-buttons-container {
+          position: absolute;
+          display: flex;
+          gap: 12px;
+          bottom: 0;
+        }
+        .isw-social-button {
+          width: var(--isw-floating-social-size);
+          height: var(--isw-floating-social-size);
+          border-radius: var(--isw-radius-full);
+          box-shadow: var(--isw-floating-shadow);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all var(--isw-transition-normal) ease-out;
+          position: absolute;
+          cursor: pointer;
+          border: none;
+          outline: none;
+        }
+        .isw-social-button:hover {
+          transform: scale(1.1);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15), 0px 8px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        /* CRITICAL: Widget Loading States */
         #isales-widget-root.isw-loading {
           visibility: hidden;
           opacity: 0;
@@ -414,6 +622,7 @@
           visibility: visible;
           opacity: 1;
         }
+
         /* Critical reset for widget isolation - scoped to widget only */
         #isales-widget-root *,
         #isales-widget-root *::before,
@@ -421,6 +630,7 @@
           box-sizing: border-box;
           margin: 0;
           padding: 0;
+          transition: var(--isw-transition-fast);
         }
         #isales-widget-root button {
           cursor: pointer;
@@ -428,6 +638,31 @@
           border: none;
           font: inherit;
           color: inherit;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+          .isw-floating-button-bottom-right,
+          .isw-floating-button-bottom-left {
+            bottom: 16px;
+            right: 16px;
+            left: auto;
+          }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          .isw-floating-button-container,
+          .isw-main-button,
+          .isw-social-button,
+          .isw-main-icon,
+          .isw-arrow-icon {
+            transition: none;
+          }
+          .isw-main-button:hover,
+          .isw-social-button:hover {
+            transform: none;
+          }
         }
       `;
       document.head.appendChild(style);
@@ -511,7 +746,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-24T19:39:44.546Z',
+    _buildTime: '2025-06-24T20:07:34.285Z',
   };
 
   // Initialize global API
