@@ -1,12 +1,12 @@
 /**
- * iSales Widget Loader v1.0.15
+ * iSales Widget Loader v1.0.17
  * Public CDN Distribution
  */
 (function(window, document) {
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.15',
+    VERSION: '1.0.17',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.css',
     TIMEOUT: 15000,
@@ -355,36 +355,83 @@
     }
   }
 
-  // Inject critical CSS to prevent flash
-  function injectCriticalCSS() {
-    if (document.getElementById('isales-critical-css')) return;
+      // Inject critical CSS to prevent flash
+    function injectCriticalCSS() {
+      if (document.getElementById('isales-critical-css')) return;
 
-    const style = document.createElement('style');
-    style.id = 'isales-critical-css';
-    style.textContent = `
-      #isales-widget-root {
-        --isw-surface-primary: #ffffff;
-        --isw-text-primary: #1f2937;
-        --isw-brand-primary: #3047ec;
-        position: fixed;
-        z-index: 999999;
-      }
-      #isales-widget-root[data-theme="dark"] {
-        --isw-surface-primary: #111827;
-        --isw-text-primary: #f9fafb;
-      }
-      #isales-widget-root.isw-loading {
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-      }
-      #isales-widget-root:not(.isw-loading) {
-        visibility: visible;
-        opacity: 1;
-      }
-    `;
-    document.head.appendChild(style);
-  }
+      const style = document.createElement('style');
+      style.id = 'isales-critical-css';
+      style.textContent = `
+        /* Widget-scoped critical CSS - will NOT affect host page */
+        #isales-widget-root {
+          /* Critical theme variables */
+          --isw-surface-primary: #ffffff;
+          --isw-text-primary: #1f2937;
+          --isw-brand-primary: #3047ec;
+          --isw-interactive-primary: #0057ff;
+          --isw-interactive-primary-hover: #2640cc;
+          --isw-interactive-danger: #ef4444;
+          --isw-surface-tertiary: #f3f4f6;
+          --isw-text-inverse: #ffffff;
+          
+          /* Essential floating button variables */
+          --isw-floating-size: 48px;
+          --isw-floating-icon-size: 32px;
+          --isw-floating-social-size: 48px;
+          --isw-floating-social-icon-size: 24px;
+          --isw-floating-bg-primary: var(--isw-interactive-primary);
+          --isw-floating-hover-primary: var(--isw-interactive-primary-hover);
+          --isw-badge-bg: var(--isw-interactive-danger);
+          --isw-tooltip-bg: var(--isw-surface-tertiary);
+          
+          /* Critical transitions */
+          --isw-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+          --isw-transition-normal: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          
+          /* Widget positioning and isolation */
+          position: fixed;
+          z-index: 999999;
+          isolation: isolate; /* Create new stacking context */
+          font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-size: 14px;
+          line-height: 1.5;
+          color: var(--isw-text-primary);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+        #isales-widget-root[data-theme="dark"] {
+          --isw-surface-primary: #111827;
+          --isw-text-primary: #f9fafb;
+          --isw-surface-tertiary: #374151;
+          --isw-text-inverse: #111827;
+        }
+        #isales-widget-root.isw-loading {
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+        }
+        #isales-widget-root:not(.isw-loading) {
+          visibility: visible;
+          opacity: 1;
+        }
+        /* Critical reset for widget isolation - scoped to widget only */
+        #isales-widget-root *,
+        #isales-widget-root *::before,
+        #isales-widget-root *::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        #isales-widget-root button {
+          cursor: pointer;
+          background: none;
+          border: none;
+          font: inherit;
+          color: inherit;
+        }
+      `;
+      document.head.appendChild(style);
+    }
   
   // Apply theme early to prevent flash
   function applyEarlyTheme(config) {
@@ -464,7 +511,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-24T10:25:26.113Z',
+    _buildTime: '2025-06-24T17:00:01.909Z',
   };
 
   // Initialize global API
