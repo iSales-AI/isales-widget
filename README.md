@@ -110,11 +110,8 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
     // AI Voice Integration (optional)
     elevenlabs_agent_id: 'your-agent-id',             // ElevenLabs AI agent ID
     
-    // Calendar Integration (optional - choose one)
-    calendar_embedding_link: 'https://calendly.com/yourlink',  // Calendly/Cal.com URL
-    
     // Google Calendar Integration (optional)
-    calendar_embedding_code: '<iframe src="..."></iframe>',  // Use and embed custom calendar HTML for Google Calendar or anything else
+    calendar_embedding_code: '<iframe src="..."></iframe>',  // Use and embed custom calendar HTML for Google Calendar, or direct links for Cal.com or Calendly or anything else
   }]);
 </script>
 <script async src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
@@ -147,15 +144,15 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 ### 📌 Version-Specific (Pinned)
 
 #### JSDelivr
-- **v1.0.9**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.9/loader.js`
+- **v1.0.10**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.10/loader.js`
 - **Minor v1.0**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/loader.js`
 
 #### Statically  
-- **v1.0.9**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.9/loader.js`
+- **v1.0.10**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.10/loader.js`
 - **Minor v1.0**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 #### GitHack
-- **v1.0.9**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.9/loader.js`
+- **v1.0.10**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.10/loader.js`
 - **Minor v1.0**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 ### 🔄 CDN Comparison
@@ -182,7 +179,7 @@ Choose the right CDN for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.9/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.10/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -214,9 +211,8 @@ window.iSalesWidget.push(['init', {
   // AI Voice Integration (optional)
   elevenlabs_agent_id: 'your-agent-id',               // ElevenLabs AI agent ID
   
-  // Calendar Integration (optional - choose one)
-  calendar_embedding_link: 'https://calendly.com/yourlink',    // Calendly/Cal.com URL
-  calendar_embedding_code: '<iframe src="..."></iframe>',      // Custom calendar HTML
+  // Calendar Integration (optional)
+  calendar_embedding_code: '<iframe src="..."></iframe>',      // Custom calendar HTML, or direct links for Cal.com or Calendly or anything else
 }]);
 ```
 
@@ -241,7 +237,7 @@ window.iSalesWidget.push(['init', {
   locale: 'en-US',
   whatsapp: 'https://wa.me/1234567890',
   telegram: 'https://t.me/yoursupport',
-  calendar_embedding_link: 'https://calendly.com/yourteam',
+  calendar_embedding_code: 'https://calendly.com/yourteam',
   elevenlabs_agent_id: 'agent-xyz123'
 }]);
 ```
@@ -273,7 +269,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.9 (2025-06-23)
+- **Latest Release**: v1.0.10 (2025-06-24)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
