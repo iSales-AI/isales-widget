@@ -1,12 +1,12 @@
 /**
- * iSales Widget Loader v1.0.12
+ * iSales Widget Loader v1.0.13
  * Public CDN Distribution
  */
 (function(window, document) {
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.12',
+    VERSION: '1.0.13',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css',
     TIMEOUT: 15000,
@@ -119,50 +119,113 @@
         return;
       }
 
-      // Check if already loaded
-      if (document.querySelector(`link[href="${currentSrc}"]`)) {
+      // Check if already loaded as stylesheet
+      if (document.querySelector(`link[rel="stylesheet"][href="${currentSrc}"]`)) {
         resolve();
         return;
       }
-
-      const link = document.createElement('link');
-      let resolved = false;
-
-      const resolveOnce = () => {
-        if (!resolved) {
-          resolved = true;
+      
+      // Check if already preloaded - convert preload to stylesheet to avoid waste
+      // First try exact match
+      let preloadedLink = document.querySelector(
+        `link[rel="preload"][href="${currentSrc}"][as="style"]`
+      );
+      
+      // If no exact match, check for any preloaded widget.css from known domains
+      if (!preloadedLink) {
+        // Check for widget.css from any domain
+        const preloadedLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+        for (const link of preloadedLinks) {
+          const href = link.getAttribute('href');
+          if (
+            href &&
+            (href.includes('/widget.css') ||
+              href.includes('/widget/v1/widget.css') ||
+              href.includes('isales-widget') ||
+              href.includes('widget.isales.ai'))
+          ) {
+            preloadedLink = link;
+            console.log('[iSales Widget] Found preloaded CSS from different CDN:', href);
+            break;
+          }
+        }
+      }
+      
+      if (preloadedLink) {
+        // Convert preload to stylesheet
+        preloadedLink.rel = 'stylesheet';
+        
+        // Remove the as attribute as it's no longer a preload
+        preloadedLink.removeAttribute('as');
+        
+        // Set up load handlers
+        const loadHandler = () => {
+          trackPerformance('css_loaded_from_preload');
           resolve();
-        }
-      };
-
-      // CSS loading is non-blocking, timeout after reasonable time
-      const timeout = setTimeout(() => {
-        if (sources.length > 1) {
-          loadCSSWithFallback(sources.slice(1)).then(resolveOnce);
+        };
+        
+        const errorHandler = () => {
+          // Fallback to loading from our CDN if preloaded resource fails
+          console.warn('[iSales Widget] Preloaded CSS failed to load, falling back to CDN');
+          preloadedLink.remove(); // Clean up the failed preload
+          
+          // Create new link element with our CDN URL
+          createNewStylesheet();
+        };
+        
+        // Check if stylesheet is already loaded (for already converted preloads)
+        if (preloadedLink.sheet) {
+          loadHandler();
         } else {
-          resolveOnce(); // Don't fail on CSS load issues
+          preloadedLink.onload = loadHandler;
+          preloadedLink.onerror = errorHandler;
         }
-      }, 5000);
+        return;
+      }
 
-      link.onload = () => {
-        clearTimeout(timeout);
-        trackPerformance('css_loaded');
-        resolveOnce();
-      };
+      // No preload found, create new stylesheet
+      createNewStylesheet();
+      
+      function createNewStylesheet() {
+        const link = document.createElement('link');
+        let resolved = false;
 
-      link.onerror = () => {
-        clearTimeout(timeout);
-        if (sources.length > 1) {
-          loadCSSWithFallback(sources.slice(1)).then(resolveOnce);
-        } else {
-          resolveOnce(); // Don't fail on CSS load issues
-        }
-      };
+        const resolveOnce = () => {
+          if (!resolved) {
+            resolved = true;
+            resolve();
+          }
+        };
 
-      link.rel = 'stylesheet';
-      link.href = currentSrc;
-      link.crossOrigin = 'anonymous';
-      document.head.appendChild(link);
+        // CSS loading is non-blocking, timeout after reasonable time
+        const timeout = setTimeout(() => {
+          if (sources.length > 1) {
+            loadCSSWithFallback(sources.slice(1)).then(resolveOnce);
+          } else {
+            resolveOnce(); // Don't fail on CSS load issues
+          }
+        }, 5000);
+
+        link.onload = () => {
+          clearTimeout(timeout);
+          trackPerformance('css_loaded_fresh');
+          resolveOnce();
+        };
+
+        link.onerror = () => {
+          clearTimeout(timeout);
+          if (sources.length > 1) {
+            loadCSSWithFallback(sources.slice(1)).then(resolveOnce);
+          } else {
+            resolveOnce(); // Don't fail on CSS load issues
+          }
+        };
+
+        link.rel = 'stylesheet';
+        link.href = currentSrc;
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(link);
+      }
     });
   }
 
@@ -220,12 +283,11 @@
 
     loadingPromise = (async () => {
       try {
-        // Preload critical resources (non-blocking)
+        // Preload critical script only (not CSS to avoid unused preload warning)
         if (document.head && document.head.insertAdjacentHTML) {
           try {
             document.head.insertAdjacentHTML('beforeend', 
-              `<link rel="preload" href="${CDN_FALLBACKS.WIDGET[0]}" as="script" crossorigin="anonymous">
-               <link rel="preload" href="${CDN_FALLBACKS.CSS[0]}" as="style" crossorigin="anonymous">`
+              `<link rel="preload" href="${CDN_FALLBACKS.WIDGET[0]}" as="script" crossorigin="anonymous">`
             );
           } catch (e) {
             // Ignore preload errors
@@ -268,6 +330,9 @@
     trackPerformance('init_start');
 
     try {
+      // Apply theme early to prevent flash
+      applyEarlyTheme(config);
+      
       await loadDependencies();
       
       if (window.iSalesWidget && window.iSalesWidget.init) {
@@ -290,6 +355,105 @@
     }
   }
 
+  // Inject critical CSS to prevent flash
+  function injectCriticalCSS() {
+    if (document.getElementById('isales-critical-css')) return;
+
+    const style = document.createElement('style');
+    style.id = 'isales-critical-css';
+    style.textContent = `
+      #isales-widget-root {
+        --isw-surface-primary: #ffffff;
+        --isw-text-primary: #1f2937;
+        --isw-brand-primary: #3047ec;
+        position: fixed;
+        z-index: 999999;
+      }
+      #isales-widget-root[data-theme="dark"] {
+        --isw-surface-primary: #111827;
+        --isw-text-primary: #f9fafb;
+      }
+      #isales-widget-root.isw-loading {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+      }
+      #isales-widget-root:not(.isw-loading) {
+        visibility: visible;
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Apply theme early to prevent flash
+  function applyEarlyTheme(config) {
+    if (!config) return;
+    
+    // Inject critical CSS first
+    injectCriticalCSS();
+
+    // Create root element early if it doesn't exist
+    let root = document.getElementById('isales-widget-root');
+    if (!root) {
+      root = document.createElement('div');
+      root.id = 'isales-widget-root';
+      root.style.position = 'fixed';
+      root.style.zIndex = '999999';
+      document.body.appendChild(root);
+    }
+
+    // Apply theme attribute
+    const theme = config.theme || 'auto';
+    if (theme === 'auto') {
+      const prefersDark =
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    } else {
+      root.setAttribute('data-theme', theme);
+    }
+
+    // Apply primary color if provided
+    if (config.primaryColor) {
+      root.style.setProperty('--isw-primary-color', config.primaryColor);
+    }
+
+    // Add loading state class to prevent layout shifts
+    root.classList.add('isw-loading');
+
+    // Remove loading state once CSS is loaded
+    const removeLoadingState = () => {
+      root.classList.remove('isw-loading');
+      trackPerformance('widget_visible');
+    };
+
+    const checkCSSLoaded = (attempts = 0) => {
+      const maxAttempts = 50; // Max 5 seconds of checking
+      
+      // Check for CSS from any of our known sources or preloaded CSS
+      const cssLoaded =
+        document.querySelector('link[rel="stylesheet"][href*="widget.css"]') ||
+        document.querySelector('link[rel="stylesheet"][href*="widget/v1/widget.css"]') ||
+        document.querySelector('link[rel="stylesheet"][href*="isales-widget"]') ||
+        document.querySelector('link[rel="stylesheet"][href*="widget.isales.ai"]');
+
+      if (cssLoaded && cssLoaded.sheet) {
+        // CSS is fully loaded and parsed
+        removeLoadingState();
+      } else if (attempts < maxAttempts) {
+        // Check again in a short interval
+        setTimeout(() => checkCSSLoaded(attempts + 1), 100);
+      } else {
+        // Fallback: show widget even if CSS detection fails
+        console.warn('[iSales Widget Loader] CSS load detection timeout, showing widget anyway');
+        removeLoadingState();
+      }
+    };
+
+    // Start checking after a small delay
+    setTimeout(() => checkCSSLoaded(0), 50);
+  }
+
   // Widget API with enhanced error handling
   const api = {
     init: init,
@@ -300,7 +464,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-24T08:37:19.575Z',
+    _buildTime: '2025-06-24T08:56:45.885Z',
   };
 
   // Initialize global API
