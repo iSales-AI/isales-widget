@@ -1,12 +1,12 @@
 /**
- * iSales Widget Loader v1.0.19
+ * iSales Widget Loader v1.0.20
  * Public CDN Distribution
  */
 (function(window, document) {
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.19',
+    VERSION: '1.0.20',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1/widget.css',
     TIMEOUT: 15000,
@@ -746,7 +746,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-24T20:07:34.283Z',
+    _buildTime: '2025-06-24T20:29:46.716Z',
   };
 
   // Initialize global API
