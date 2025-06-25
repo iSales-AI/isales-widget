@@ -1,12 +1,18 @@
 /**
- * iSales Widget Loader v1.0.21
+ * iSales Widget Loader v1.0.22
  * Public CDN Distribution
+ * Generated: 2025-06-25T05:55:31.738Z
+ * 
+ * CRITICAL CSS APPROACH:
+ * - Only includes widget isolation and CSS variables in inline CSS
+ * - Component styles come from full widget.css to prevent cascade conflicts
+ * - CSS variables have no !important to allow proper theming
  */
 (function(window, document) {
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.21',
+    VERSION: '1.0.22',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1/widget.css',
     TIMEOUT: 15000,
@@ -355,333 +361,36 @@
     }
   }
 
-  // Inject critical CSS to prevent flash
+  // Inject critical CSS - ONLY isolation and CSS variables to prevent cascade issues
   function injectCriticalCSS() {
     if (document.getElementById('isales-critical-css')) return;
 
     const style = document.createElement('style');
     style.id = 'isales-critical-css';
-    style.textContent = `
-      /* Widget-scoped critical CSS - Comprehensive floating button support */
-      /* CRITICAL: Enhanced host site isolation */
-      #isales-widget-root {
-        /* Critical positioning and isolation */
-        all: initial !important;
-        position: fixed !important;
-        z-index: 2147483647 !important; /* Maximum z-index */
-        isolation: isolate !important;
-        transform: none !important;
-        filter: none !important;
-        backdrop-filter: none !important;
-        clip-path: none !important;
-        mask: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        box-sizing: border-box !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        background: transparent !important;
-        outline: none !important;
-        display: block !important;
-        content: normal !important;
-
-        /* Essential Brand Colors */
-        --isw-brand-primary: #0057ff;
-        --isw-brand-secondary: #10b981;
-        --isw-brand-accent: #ffc421;
-
-        /* Surface Colors - Light Mode */
-        --isw-surface-primary: #ffffff;
-        --isw-surface-secondary: #f9fafb;
-        --isw-surface-tertiary: #f3f4f6;
-        --isw-surface-elevated: #ffffff;
-        --isw-surface-overlay: rgba(255, 255, 255, 0.95);
-
-        /* Text Colors */
-        --isw-text-primary: #1f2937;
-        --isw-text-secondary: #6b7280;
-        --isw-text-tertiary: #9ca3af;
-        --isw-text-inverse: #ffffff;
-        --isw-text-accent: var(--isw-brand-primary);
-        --isw-text-muted: #737376;
-
-        /* Border Colors */
-        --isw-border-subtle: #e5e7eb;
-        --isw-border-default: #d1d5db;
-        --isw-border-strong: #9ca3af;
-
-        /* Interactive Colors - CRITICAL for floating button */
-        --isw-interactive-primary: var(--isw-brand-primary);
-        --isw-interactive-primary-hover: #2640cc;
-        --isw-interactive-secondary: var(--isw-brand-secondary);
-        --isw-interactive-secondary-hover: #059669;
-        --isw-interactive-danger: #ef4444;
-        --isw-interactive-danger-hover: #dc2626;
-        --isw-interactive-success: #10b981;
-        --isw-interactive-warning: #f59e0b;
-
-        /* Shadow System */
-        --isw-shadow-color: rgba(0, 0, 0, 0.1);
-        --isw-shadow-color-prominent: rgba(26, 26, 26, 0.12);
-        --isw-shadow-subtle: 0 1px 2px var(--isw-shadow-color);
-        --isw-shadow-default: 0 4px 6px -1px var(--isw-shadow-color);
-        --isw-shadow-prominent: 0 10px 15px -3px var(--isw-shadow-color);
-        --isw-shadow-floating: 0px 1px 6px 0px rgba(0, 0, 0, 0.06), 0px 2px 32px 0px rgba(0, 0, 0, 0.16);
-
-        /* Border Radius */
-        --isw-radius-sm: 0.375rem;
-        --isw-radius-md: 0.5rem;
-        --isw-radius-lg: 0.75rem;
-        --isw-radius-xl: 1rem;
-        --isw-radius-full: 9999px;
-        --isw-radius-button: 8px;
-
-        /* Typography */
-        --isw-font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-
-        /* Transitions - CRITICAL for animations */
-        --isw-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        --isw-transition-normal: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        --isw-transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-        /* Floating Button Critical Variables */
-        --isw-floating-size: 48px;
-        --isw-floating-icon-size: 32px;
-        --isw-floating-social-size: 48px;
-        --isw-floating-social-icon-size: 24px;
-        --isw-floating-bg-primary: var(--isw-interactive-primary);
-        --isw-floating-bg-secondary: var(--isw-interactive-secondary);
-        --isw-floating-bg-danger: var(--isw-interactive-danger);
-        --isw-floating-hover-primary: var(--isw-interactive-primary-hover);
-        --isw-floating-hover-secondary: var(--isw-interactive-secondary-hover);
-        --isw-floating-hover-danger: var(--isw-interactive-danger-hover);
-        --isw-floating-text: var(--isw-text-inverse);
-        --isw-floating-shadow: var(--isw-shadow-floating);
-
-        /* Badge Variables */
-        --isw-badge-bg: var(--isw-interactive-danger);
-        --isw-badge-text: var(--isw-text-inverse);
-        --isw-badge-border: var(--isw-surface-primary);
-
-        /* Tooltip Variables */
-        --isw-tooltip-bg: var(--isw-surface-tertiary);
-        --isw-tooltip-text: var(--isw-text-primary);
-        --isw-tooltip-shadow: var(--isw-shadow-prominent);
-
-        /* Base font properties */
-        font-family: var(--isw-font-family) !important;
-        font-size: 14px !important;
-        line-height: 1.5 !important;
-        color: var(--isw-text-primary) !important;
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
-      }
-
-      /* Dark theme overrides */
-      #isales-widget-root[data-theme="dark"] {
-        --isw-surface-primary: #111827;
-        --isw-surface-secondary: #1f2937;
-        --isw-surface-tertiary: #374151;
-        --isw-text-primary: #f9fafb;
-        --isw-text-secondary: #d1d5db;
-        --isw-text-tertiary: #9ca3af;
-        --isw-text-inverse: #111827;
-        --isw-border-subtle: #374151;
-        --isw-border-default: #4b5563;
-        --isw-shadow-color: rgba(0, 0, 0, 0.3);
-        --isw-tooltip-bg: #374151;
-      }
-
-      /* CRITICAL: Floating Button Container */
-      #isales-widget-root .isw-floating-button-container {
-        position: fixed !important;
-        z-index: 999995 !important;
-        transition: all var(--isw-transition-slow) ease-out !important;
-        display: block !important;
-      }
-      #isales-widget-root .isw-floating-button-container-visible {
-        transform: scale(1) !important;
-        opacity: 1 !important;
-      }
-      #isales-widget-root .isw-floating-button-container-hidden {
-        transform: scale(0) !important;
-        opacity: 0 !important;
-      }
-      #isales-widget-root .isw-floating-button-bottom-right {
-        bottom: 24px !important;
-        right: 24px !important;
-      }
-      #isales-widget-root .isw-floating-button-bottom-left {
-        bottom: 24px !important;
-        left: 24px !important;
-      }
-
-      /* CRITICAL: Main Floating Button */
-      #isales-widget-root .isw-main-button {
-        width: var(--isw-floating-size) !important;
-        height: var(--isw-floating-size) !important;
-        border-radius: var(--isw-radius-full) !important;
-        background-color: var(--isw-floating-bg-primary) !important;
-        color: var(--isw-floating-text) !important;
-        position: relative !important;
-        box-shadow: var(--isw-floating-shadow) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transition: all var(--isw-transition-normal) !important;
-        cursor: pointer !important;
-        border: none !important;
-        outline: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-      #isales-widget-root .isw-main-button:hover {
-        background-color: var(--isw-floating-hover-primary) !important;
-        transform: scale(1.1) !important;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15), 0px 8px 40px rgba(0, 0, 0, 0.25) !important;
-      }
-      #isales-widget-root .isw-main-button:active {
-        transform: scale(0.95) !important;
-      }
-
-      /* CRITICAL: Icon Animation System */
-      #isales-widget-root .isw-icon-animation-container {
-        position: relative !important;
-        width: var(--isw-floating-icon-size) !important;
-        height: var(--isw-floating-icon-size) !important;
-        display: block !important;
-      }
-      #isales-widget-root .isw-main-icon, 
-      #isales-widget-root .isw-arrow-icon {
-        position: absolute !important;
-        inset: 0 !important;
-        width: var(--isw-floating-icon-size) !important;
-        height: var(--isw-floating-icon-size) !important;
-        color: var(--isw-floating-text) !important;
-        transition: all var(--isw-transition-slow) !important;
-        display: block !important;
-      }
-      #isales-widget-root .isw-main-icon-visible, 
-      #isales-widget-root .isw-arrow-icon-visible {
-        opacity: 1 !important;
-        transform: rotate(0deg) !important;
-      }
-      #isales-widget-root .isw-main-icon-hidden {
-        opacity: 0 !important;
-        transform: rotate(90deg) !important;
-      }
-      #isales-widget-root .isw-arrow-icon-hidden {
-        opacity: 0 !important;
-        transform: rotate(-90deg) !important;
-      }
-
-      /* CRITICAL: Main Content Area Pseudo-Elements */
-      #isales-widget-root .isw-main-content-area::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        z-index: -2 !important;
-        background: linear-gradient(155deg, #233c68 5%, #0057ff 32%, #ffffff 70%) !important;
-        pointer-events: none !important;
-        border-radius: 18px 18px 0 0 !important;
-        opacity: 1 !important;
-        display: block !important;
-      }
-      #isales-widget-root .isw-main-content-area::after {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        z-index: -1 !important;
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") !important;
-        mix-blend-mode: color-burn !important;
-        filter: contrast(130%) brightness(120%) !important;
-        opacity: 0.2 !important;
-        pointer-events: none !important;
-        border-radius: 18px 18px 0 0 !important;
-        display: block !important;
-      }
-
-      /* CRITICAL: Unread Badge */
-      #isales-widget-root .isw-unread-badge {
-        position: absolute !important;
-        top: -8px !important;
-        right: -8px !important;
-        background-color: var(--isw-badge-bg) !important;
-        color: var(--isw-badge-text) !important;
-        border-radius: var(--isw-radius-full) !important;
-        min-width: 24px !important;
-        height: 24px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 12px !important;
-        font-weight: 700 !important;
-        padding: 0 6px !important;
-        border: 2px solid var(--isw-badge-border) !important;
-        box-shadow: var(--isw-shadow-default) !important;
-        font-family: var(--isw-font-family) !important;
-      }
-
-      /* CRITICAL: Widget Loading States */
-      #isales-widget-root.isw-loading {
-        visibility: hidden !important;
-        opacity: 0 !important;
-        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out !important;
-      }
-      #isales-widget-root:not(.isw-loading) {
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-
-      /* Critical reset for widget isolation - scoped to widget only */
-      #isales-widget-root *,
-      #isales-widget-root *::before,
-      #isales-widget-root *::after {
-        box-sizing: border-box !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        transition: var(--isw-transition-fast) !important;
-      }
-      #isales-widget-root button {
-        cursor: pointer !important;
-        background: none !important;
-        border: none !important;
-        font: inherit !important;
-        color: inherit !important;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 640px) {
-        #isales-widget-root .isw-floating-button-bottom-right,
-        #isales-widget-root .isw-floating-button-bottom-left {
-          bottom: 16px !important;
-          right: 16px !important;
-          left: auto !important;
-        }
-      }
-
-      /* Accessibility */
-      @media (prefers-reduced-motion: reduce) {
-        #isales-widget-root .isw-floating-button-container,
-        #isales-widget-root .isw-main-button,
-        #isales-widget-root .isw-social-button,
-        #isales-widget-root .isw-main-icon,
-        #isales-widget-root .isw-arrow-icon {
-          transition: none !important;
-        }
-        #isales-widget-root .isw-main-button:hover,
-        #isales-widget-root .isw-social-button:hover {
-          transform: none !important;
-        }
-      }
-    `;
+    
+    // CRITICAL: Only includes essential widget isolation and CSS variables
+    // Component styles are handled by the full widget.css to prevent cascade conflicts
+    style.textContent = `#isales-widget-root {
+  all: initial !important;
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --isw-brand-primary: #0057ff;
+  --isw-interactive-primary: var(--isw-brand-primary);
+  --isw-text-inverse: #ffffff;
+  --isw-surface-primary: #ffffff;
+  --isw-transition-normal: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --isw-radius-full: 9999px;
+}
+#isales-widget-root[data-theme="dark"] {
+  --isw-surface-primary: #111827;
+  --isw-text-primary: #f9fafb;
+}
+#isales-widget-root *, #isales-widget-root *::before, #isales-widget-root *::after {
+  box-sizing: border-box !important;
+}`;
     
     // Inject at the very beginning of head to ensure highest priority
     if (document.head.firstChild) {
@@ -812,7 +521,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-24T20:55:15.925Z',
+    _buildTime: '2025-06-25T05:55:31.738Z',
   };
 
   // Initialize global API

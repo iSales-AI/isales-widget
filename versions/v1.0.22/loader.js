@@ -1,7 +1,7 @@
 /**
  * iSales Widget Loader v1.0.22
  * Public CDN Distribution
- * Generated: 2025-06-25T05:55:31.745Z
+ * Generated: 2025-06-25T05:55:31.735Z
  * 
  * CRITICAL CSS APPROACH:
  * - Only includes widget isolation and CSS variables in inline CSS
@@ -13,8 +13,8 @@
 
   const CONFIG = {
     VERSION: '1.0.22',
-    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js',
-    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css',
+    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.22/widget.js',
+    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.22/widget.css',
     TIMEOUT: 15000,
     MAX_RETRIES: 3,
     RETRY_DELAY: 1000,
@@ -24,13 +24,13 @@
   const CDN_FALLBACKS = {
     WIDGET: [
       CONFIG.WIDGET_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.js`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.js`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.22/widget.js`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.22/widget.js`
     ],
     CSS: [
       CONFIG.CSS_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.css`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.css`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.22/widget.css`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.22/widget.css`
     ],
     REACT: [
       'https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js',
@@ -521,7 +521,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-06-25T05:55:31.745Z',
+    _buildTime: '2025-06-25T05:55:31.735Z',
   };
 
   // Initialize global API
