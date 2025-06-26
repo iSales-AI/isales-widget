@@ -2,10 +2,10 @@
   "version": "1.0.23",
   "majorVersion": "1",
   "minorVersion": "1.0",
-  "generated": "2025-06-26T17:15:03.815Z",
+  "generated": "2025-06-26T17:15:03.809Z",
   "cdn": {
     "jsdelivr": {
-      "url": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js",
+      "url": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.23/loader.js",
       "recommended": true,
       "features": [
         "global-edge",
@@ -14,7 +14,7 @@
       ]
     },
     "statically": {
-      "url": "https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/loader.js",
+      "url": "https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.23/loader.js",
       "recommended": true,
       "features": [
         "fast",
@@ -23,7 +23,7 @@
       ]
     },
     "githack": {
-      "url": "https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js",
+      "url": "https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.23/loader.js",
       "recommended": false,
       "features": [
         "no-rate-limits",
@@ -31,7 +31,7 @@
       ]
     },
     "github": {
-      "url": "https://raw.githubusercontent.com/iSales-AI/isales-widget/main/latest/loader.js",
+      "url": "https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.23/loader.js",
       "recommended": false,
       "features": [
         "direct",
