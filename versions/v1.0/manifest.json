@@ -1,8 +1,8 @@
 {
-  "version": "1.0.29",
+  "version": "1.0.30",
   "majorVersion": "1",
   "minorVersion": "1.0",
-  "generated": "2025-07-04T14:18:15.595Z",
+  "generated": "2025-07-04T14:21:03.891Z",
   "cdn": {
     "jsdelivr": {
       "url": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/loader.js",

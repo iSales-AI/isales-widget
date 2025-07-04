@@ -1,7 +1,7 @@
 /**
- * iSales Widget Loader v1.0.29
+ * iSales Widget Loader v1.0.30
  * Public CDN Distribution
- * Generated: 2025-07-04T14:18:15.598Z
+ * Generated: 2025-07-04T14:21:03.893Z
  * 
  * CRITICAL CSS APPROACH:
  * - Only includes widget isolation and CSS variables in inline CSS
@@ -12,7 +12,7 @@
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.29',
+    VERSION: '1.0.30',
     WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js',
     CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css',
     TIMEOUT: 15000,
@@ -521,7 +521,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-07-04T14:18:15.598Z',
+    _buildTime: '2025-07-04T14:21:03.893Z',
   };
 
   // Initialize global API
