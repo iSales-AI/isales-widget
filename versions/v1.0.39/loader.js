@@ -1,7 +1,7 @@
 /**
  * iSales Widget Loader v1.0.39
  * Public CDN Distribution  
- * Generated: 2025-07-06T12:30:08.218Z
+ * Generated: 2025-07-06T12:30:08.213Z
  * 
  * AUTO-UPDATE STRATEGY:
  * - Loader checks for updates every 5 minutes via manifest
@@ -19,10 +19,10 @@
   const CONFIG = {
     VERSION: '1.0.39',
     BUILD_HASH: '1039',
-    TIMESTAMP: 1751805008218,
-    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js?v=1.0.39&t=1751805008218',
-    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css?v=1.0.39&t=1751805008218',
-    VERSION_CHECK_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/manifest.json',
+    TIMESTAMP: 1751805008213,
+    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.39/widget.js?v=1.0.39&t=1751805008213',
+    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.39/widget.css?v=1.0.39&t=1751805008213',
+    VERSION_CHECK_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.39/manifest.json',
     TIMEOUT: 15000,
     MAX_RETRIES: 3,
     RETRY_DELAY: 1000,
@@ -34,13 +34,13 @@
   const CDN_FALLBACKS = {
     WIDGET: [
       CONFIG.WIDGET_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.39/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.39/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
     ],
     CSS: [
       CONFIG.CSS_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.39/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.39/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
     ],
     REACT: [
       'https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js',
@@ -583,7 +583,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-07-06T12:30:08.218Z',
+    _buildTime: '2025-07-06T12:30:08.213Z',
   };
 
   // Initialize global API

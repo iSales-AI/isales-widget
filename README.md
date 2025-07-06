@@ -152,15 +152,15 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 ### 📌 Version-Specific (Pinned)
 
 #### JSDelivr
-- **v1.0.38**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.38/loader.js`
+- **v1.0.39**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.39/loader.js`
 - **Minor v1.0**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/loader.js`
 
 #### Statically  
-- **v1.0.38**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.38/loader.js`
+- **v1.0.39**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.39/loader.js`
 - **Minor v1.0**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 #### GitHack
-- **v1.0.38**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.38/loader.js`
+- **v1.0.39**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.39/loader.js`
 - **Minor v1.0**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 ### 🔄 CDN Comparison
@@ -187,7 +187,7 @@ Choose the right CDN for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.38/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.39/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -277,7 +277,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.38 (2025-07-06)
+- **Latest Release**: v1.0.39 (2025-07-06)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
