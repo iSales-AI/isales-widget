@@ -119,7 +119,15 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 
 **Step 3:** Watch your conversions soar! 📈
 
-> **💡 Pro Tip:** Start with our free tier - no credit card required.
+> **🔄 Auto-Update Enabled:** Widget automatically updates to the latest version every 5 minutes  
+> **💡 Pro Tip:** Start with our free tier - no credit card required
+
+### ✨ **What Happens After Integration**
+
+🔄 **Automatic Updates**: Your widget checks for new versions every 5 minutes and auto-updates  
+🚀 **Zero Maintenance**: No manual updates required - always get the latest features  
+📊 **Performance Tracking**: Update events are tracked in your analytics dashboard  
+🛡️ **Reliable Delivery**: Multiple CDN fallbacks ensure 99.9% uptime
 
 ## 📦 CDN URLs
 
@@ -144,15 +152,15 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 ### 📌 Version-Specific (Pinned)
 
 #### JSDelivr
-- **v1.0.30**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.30/loader.js`
+- **v1.0.31**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.31/loader.js`
 - **Minor v1.0**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/loader.js`
 
 #### Statically  
-- **v1.0.30**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.30/loader.js`
+- **v1.0.31**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.31/loader.js`
 - **Minor v1.0**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 #### GitHack
-- **v1.0.30**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.30/loader.js`
+- **v1.0.31**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.31/loader.js`
 - **Minor v1.0**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0/loader.js`
 
 ### 🔄 CDN Comparison
@@ -179,7 +187,7 @@ Choose the right CDN for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.30/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.31/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -269,7 +277,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.30 (2025-07-04)
+- **Latest Release**: v1.0.31 (2025-07-06)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
@@ -279,3 +287,51 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 - **📚 Full Documentation**: [Complete setup guide](https://isales.ai/docs/welcome-to-isales-chatbot)  
 - **💬 Get Support**: [Help center](https://t.me/isales_ai)
 - **🐛 Report Issues**: [GitHub Issues](https://github.com/iSales-AI/isales-widget/issues)
+- **🧪 Test Auto-Updates**: [CDN Test Script](https://github.com/iSales-AI/isales-widget/blob/main/scripts/test-public-cdn-update.mjs)
+
+## 🧪 Testing Auto-Update Functionality
+
+Validate that your CDN setup correctly supports auto-updates:
+
+```bash
+# Test all CDNs with latest version
+curl -s https://raw.githubusercontent.com/iSales-AI/isales-widget/main/scripts/test-public-cdn-update.mjs | node
+
+# Test specific version
+curl -s https://raw.githubusercontent.com/iSales-AI/isales-widget/main/scripts/test-public-cdn-update.mjs | node - versions/v1
+
+# Test with custom repository
+PUBLIC_REPO=your-org/your-repo curl -s https://raw.githubusercontent.com/iSales-AI/isales-widget/main/scripts/test-public-cdn-update.mjs | node
+```
+
+### Expected Test Results
+
+✅ **All CDNs should pass these tests:**
+- Loader accessibility and auto-update logic
+- Widget file availability and correct headers
+- Manifest.json version checking endpoint
+- Cache-busting parameter support
+- Version comparison and reload functionality
+
+🎯 **Performance Benchmarks:**
+- JSDelivr: 99%+ success rate (recommended)
+- Statically: 95%+ success rate (fast alternative)
+- GitHack: 90%+ success rate (development)
+- GitHub Raw: 85%+ success rate (basic)
+
+### Auto-Update Monitoring
+
+Monitor update behavior in your browser console:
+
+```javascript
+// Check current widget version
+console.log(window.iSalesWidget._version);
+
+// Monitor update events
+window.addEventListener('beforeunload', () => {
+  console.log('Widget version check triggered page reload');
+});
+
+// View update metrics
+console.log(window.iSalesWidget.getMetrics());
+```

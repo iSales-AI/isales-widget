@@ -1,7 +1,12 @@
 /**
- * iSales Widget Loader v1.0.30
- * Public CDN Distribution
- * Generated: 2025-07-04T14:21:03.893Z
+ * iSales Widget Loader v1.0.31
+ * Public CDN Distribution  
+ * Generated: 2025-07-06T07:06:19.828Z
+ * 
+ * AUTO-UPDATE STRATEGY:
+ * - Loader checks for updates every 5 minutes via manifest
+ * - Widget files use timestamp-based cache busting
+ * - Multiple CDN fallbacks for reliability
  * 
  * CRITICAL CSS APPROACH:
  * - Only includes widget isolation and CSS variables in inline CSS
@@ -12,25 +17,30 @@
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.30',
-    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js',
-    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css',
+    VERSION: '1.0.31',
+    BUILD_HASH: '1031',
+    TIMESTAMP: 1751785579828,
+    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js?v=1.0.31&t=1751785579828',
+    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css?v=1.0.31&t=1751785579828',
+    VERSION_CHECK_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/manifest.json',
     TIMEOUT: 15000,
     MAX_RETRIES: 3,
     RETRY_DELAY: 1000,
+    UPDATE_CHECK_INTERVAL: 300000, // 5 minutes
+    ENVIRONMENT: 'public-cdn',
   };
 
-  // CDN Fallbacks for reliability
+  // ✅ CDN Fallbacks with cache-busting for reliability
   const CDN_FALLBACKS = {
     WIDGET: [
       CONFIG.WIDGET_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.js`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.js`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.js?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
     ],
     CSS: [
       CONFIG.CSS_URL,
-      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.css`,
-      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.css`
+      `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`,
+      `https://raw.githack.com/iSales-AI/isales-widget/main/latest/widget.css?v=${CONFIG.VERSION}&t=${CONFIG.TIMESTAMP}`
     ],
     REACT: [
       'https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js',
@@ -281,6 +291,44 @@
     });
   }
 
+  // ✅ VERSION CHECKING for automatic updates
+  async function checkForUpdates() {
+    try {
+      const response = await fetch(CONFIG.VERSION_CHECK_URL + '?t=' + Date.now());
+      if (!response.ok) return false;
+      
+      const manifest = await response.json();
+      const latestVersion = manifest.version;
+      
+      // Compare versions (simple string comparison for now)
+      if (latestVersion !== CONFIG.VERSION) {
+        console.warn(`[iSales Widget] New version available: ${latestVersion} (current: ${CONFIG.VERSION})`);
+        
+        // Track update availability
+        if (window.gtag && CONFIG.ENVIRONMENT === 'public-cdn') {
+          window.gtag('event', 'widget_update_available', {
+            event_category: 'widget',
+            event_label: latestVersion,
+            value: 1
+          });
+        }
+        
+        // Force reload the page to get new version
+        setTimeout(() => {
+          console.warn('[iSales Widget] Reloading page to update widget...');
+          window.location.reload();
+        }, 2000);
+        
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      console.warn('[iSales Widget] Version check failed:', error);
+      return false;
+    }
+  }
+
   async function loadDependencies() {
     if (loadingPromise) return loadingPromise;
 
@@ -312,15 +360,29 @@
         const loadTime = performance.now() - loadingStartTime;
         trackPerformance('total_load_time', loadTime);
         
+        // ✅ START VERSION CHECKING after successful load
+        setInterval(checkForUpdates, CONFIG.UPDATE_CHECK_INTERVAL);
+        // Check once immediately after load
+        setTimeout(checkForUpdates, 30000); // Wait 30s before first check
+        
         // Log success metrics
         if (loadTime < 3000) {
-          console.log(`[iSales Widget] Loaded successfully in ${Math.round(loadTime)}ms`);
+          console.log(`[iSales Widget] Loaded successfully in ${Math.round(loadTime)}ms (public CDN)`);
         }
 
       } catch (error) {
         const loadTime = performance.now() - loadingStartTime;
         trackPerformance('load_error', loadTime);
         console.error('[iSales Widget] Load failed after all retries:', error);
+        
+        // Report critical errors
+        if (window.gtag && CONFIG.ENVIRONMENT === 'public-cdn') {
+          window.gtag('event', 'exception', {
+            description: 'Widget load failed: ' + error.message,
+            fatal: false
+          });
+        }
+        
         throw error;
       }
     })();
@@ -521,7 +583,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-07-04T14:21:03.893Z',
+    _buildTime: '2025-07-06T07:06:19.828Z',
   };
 
   // Initialize global API
