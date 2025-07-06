@@ -14,37 +14,59 @@
 (function (window, document) {
   'use strict';
 
-  // Configuration - dynamically set during deployment
+  // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: 'latest',
     WIDGET_CDN: (function () {
-      // Extract repo info from current script src if available
-      const currentScript = document.currentScript;
-      if (currentScript && currentScript.src) {
-        const url = new URL(currentScript.src);
-        const pathParts = url.pathname.split('/');
-        if (pathParts.includes('gh') && pathParts.length >= 5) {
-          const repo = `${pathParts[2]}/${pathParts[3]}`;
-          const version = pathParts[4];
-          const dir = pathParts[5];
-          return `https://cdn.jsdelivr.net/gh/${repo}@${version}/${dir}/widget.js`;
+      // ✅ FIXED: Use more reliable URL detection with fallback
+      try {
+        const currentScript = document.currentScript;
+        if (currentScript && currentScript.src) {
+          const url = new URL(currentScript.src);
+          const pathParts = url.pathname.split('/').filter((p) => p);
+
+          // Check for jsdelivr CDN pattern: /gh/owner/repo@version/dir/loader.js
+          if (pathParts.length >= 5 && pathParts[0] === 'gh' && pathParts[2].includes('@')) {
+            const [repoWithVersion, ...dirParts] = pathParts.slice(1);
+            const [owner, repoAndVersion] = repoWithVersion.split('/');
+            const [repo, version] = repoAndVersion.split('@');
+            const dir = dirParts.join('/');
+
+            if (owner && repo && version && dir) {
+              return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${version}/${dir}/widget.js`;
+            }
+          }
         }
+      } catch (error) {
+        console.log('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
       }
+
       // Fallback to default
       return 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js';
     })(),
     WIDGET_CSS: (function () {
-      const currentScript = document.currentScript;
-      if (currentScript && currentScript.src) {
-        const url = new URL(currentScript.src);
-        const pathParts = url.pathname.split('/');
-        if (pathParts.includes('gh') && pathParts.length >= 5) {
-          const repo = `${pathParts[2]}/${pathParts[3]}`;
-          const version = pathParts[4];
-          const dir = pathParts[5];
-          return `https://cdn.jsdelivr.net/gh/${repo}@${version}/${dir}/widget.css`;
+      try {
+        const currentScript = document.currentScript;
+        if (currentScript && currentScript.src) {
+          const url = new URL(currentScript.src);
+          const pathParts = url.pathname.split('/').filter((p) => p);
+
+          // Check for jsdelivr CDN pattern: /gh/owner/repo@version/dir/loader.js
+          if (pathParts.length >= 5 && pathParts[0] === 'gh' && pathParts[2].includes('@')) {
+            const [repoWithVersion, ...dirParts] = pathParts.slice(1);
+            const [owner, repoAndVersion] = repoWithVersion.split('/');
+            const [repo, version] = repoAndVersion.split('@');
+            const dir = dirParts.join('/');
+
+            if (owner && repo && version && dir) {
+              return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${version}/${dir}/widget.css`;
+            }
+          }
         }
+      } catch (error) {
+        console.log('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
       }
+
       return 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css';
     })(),
     SENTRY_CDN: 'https://js.sentry-cdn.com/a2bfb117449c28e80480c0becf8586b1.min.js',
@@ -53,20 +75,31 @@
     RETRY_DELAY: 1000,
   };
 
-  // CDN Fallbacks for reliability - dynamically generated
+  // CDN Fallbacks for reliability - stable fallbacks
   const CDN_FALLBACKS = (function () {
-    // Extract repo and path info for fallback URLs
-    let repoPath = 'iSales-AI/isales-widget/main/latest';
-    const currentScript = document.currentScript;
-    if (currentScript && currentScript.src) {
-      const url = new URL(currentScript.src);
-      const pathParts = url.pathname.split('/');
-      if (pathParts.includes('gh') && pathParts.length >= 6) {
-        const repo = `${pathParts[2]}/${pathParts[3]}`;
-        const version = pathParts[4];
-        const dir = pathParts[5];
-        repoPath = `${repo}/${version}/${dir}`;
+    // ✅ FIXED: Extract repo and path info more safely
+    let repoPath = 'iSales-AI/isales-widget@main/latest';
+
+    try {
+      const currentScript = document.currentScript;
+      if (currentScript && currentScript.src) {
+        const url = new URL(currentScript.src);
+        const pathParts = url.pathname.split('/').filter((p) => p);
+
+        // Check for jsdelivr CDN pattern: /gh/owner/repo@version/dir/loader.js
+        if (pathParts.length >= 5 && pathParts[0] === 'gh' && pathParts[2].includes('@')) {
+          const [repoWithVersion, ...dirParts] = pathParts.slice(1);
+          const [owner, repoAndVersion] = repoWithVersion.split('/');
+          const [repo, version] = repoAndVersion.split('@');
+          const dir = dirParts.join('/');
+
+          if (owner && repo && version && dir) {
+            repoPath = `${owner}/${repo}@${version}/${dir}`;
+          }
+        }
       }
+    } catch (error) {
+      console.log('[iSales Widget Loader] CDN fallback detection failed, using defaults');
     }
 
     return {
@@ -74,11 +107,13 @@
         CONFIG.WIDGET_CDN,
         `https://cdn.statically.io/gh/${repoPath}/widget.js`,
         `https://raw.githack.com/${repoPath.replace('@', '/')}/widget.js`,
+        'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.js', // Final fallback
       ],
       CSS: [
         CONFIG.WIDGET_CSS,
         `https://cdn.statically.io/gh/${repoPath}/widget.css`,
         `https://raw.githack.com/${repoPath.replace('@', '/')}/widget.css`,
+        'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css', // Final fallback
       ],
     };
   })();
@@ -456,8 +491,10 @@
 
         // Load the main widget script
         if (!isWidgetLoaded) {
+          console.log('[iSales Widget Loader] Loading widget script from:', widgetSources[0]);
           await loadScriptWithRetry(widgetSources);
           isWidgetLoaded = true;
+          console.log('[iSales Widget Loader] Widget script loaded successfully');
         }
 
         // Wait for CSS to complete (non-critical, won't block script execution)
@@ -951,14 +988,68 @@
 
       await loadDependencies();
 
-      // Initialize the widget
-      if (window.iSalesWidget && typeof window.iSalesWidget.init === 'function') {
-        const initResult = await window.iSalesWidget.init(config);
-        trackPerformance('init_complete');
-        return initResult;
-      } else {
-        throw new Error('Widget not available after loading');
-      }
+      // ✅ FIXED: Wait for actual widget to be ready with timeout and debugging
+      const waitForWidget = async (maxAttempts = 50) => {
+        console.log('[iSales Widget Loader] Waiting for widget to initialize...');
+
+        for (let i = 0; i < maxAttempts; i++) {
+          // Debug info every 10 attempts
+          if (i % 10 === 0 && i > 0) {
+            console.log(`[iSales Widget Loader] Still waiting... attempt ${i}/${maxAttempts}`);
+            console.log('Available objects:', {
+              iSalesWidgetCore: !!window.iSalesWidgetCore,
+              iSalesWidget: !!window.iSalesWidget,
+              iSalesWidgetType: typeof window.iSalesWidget,
+              hasInit: !!window.iSalesWidget?.init,
+              isActualWidget: !!window.iSalesWidget?._isActualWidget,
+              isOurInit: window.iSalesWidget?.init === init,
+            });
+          }
+
+          // Check if actual widget is loaded (not the loader's proxy)
+          if (window.iSalesWidgetCore && typeof window.iSalesWidgetCore.init === 'function') {
+            console.log('[iSales Widget Loader] Found iSalesWidgetCore, initializing...');
+            return window.iSalesWidgetCore;
+          }
+
+          // Fallback: check if window.iSalesWidget is the actual widget (not our proxy)
+          if (
+            window.iSalesWidget &&
+            typeof window.iSalesWidget.init === 'function' &&
+            window.iSalesWidget.init !== init && // ✅ CRITICAL: Not our own init function
+            window.iSalesWidget._isActualWidget
+          ) {
+            console.log('[iSales Widget Loader] Found actual widget, initializing...');
+            return window.iSalesWidget;
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+
+        // Enhanced error with debug info
+        const debugInfo = {
+          iSalesWidgetCore: !!window.iSalesWidgetCore,
+          iSalesWidget: !!window.iSalesWidget,
+          iSalesWidgetType: typeof window.iSalesWidget,
+          hasInit: !!window.iSalesWidget?.init,
+          isActualWidget: !!window.iSalesWidget?._isActualWidget,
+          isOurInit: window.iSalesWidget?.init === init,
+          loadingPromise: !!loadingPromise,
+          isWidgetLoaded: isWidgetLoaded,
+        };
+
+        console.error(
+          '[iSales Widget Loader] Widget initialization timeout after 5 seconds:',
+          debugInfo
+        );
+        throw new Error(`Widget initialization timeout. Debug info: ${JSON.stringify(debugInfo)}`);
+      };
+
+      // Initialize the actual widget
+      const actualWidget = await waitForWidget();
+      const initResult = await actualWidget.init(config);
+      trackPerformance('init_complete');
+      return initResult;
     } catch (error) {
       trackPerformance('init_error');
       console.error('[iSales Widget Loader] Initialization failed:', error);
@@ -988,14 +1079,27 @@
     try {
       await loadDependencies();
 
-      // Process all queued commands
-      initQueue.forEach(([command, args]) => {
-        if (window.iSalesWidget && typeof window.iSalesWidget[command] === 'function') {
-          window.iSalesWidget[command](...args);
-        }
-      });
+      // ✅ FIXED: Process commands with actual widget, not loader proxy
+      const actualWidget =
+        window.iSalesWidgetCore ||
+        (window.iSalesWidget?._isActualWidget ? window.iSalesWidget : null);
 
-      initQueue = [];
+      if (actualWidget) {
+        console.log(`[iSales Widget Loader] Processing ${initQueue.length} queued commands...`);
+
+        // Process all queued commands
+        initQueue.forEach(([command, args]) => {
+          if (typeof actualWidget[command] === 'function') {
+            actualWidget[command](...args);
+          } else {
+            console.warn(`[iSales Widget Loader] Command not available: ${command}`);
+          }
+        });
+
+        initQueue = [];
+      } else {
+        console.warn('[iSales Widget Loader] Widget not ready, keeping commands in queue');
+      }
     } catch (error) {
       console.error('[iSales Widget Loader] Failed to process queue:', error);
     }
@@ -1048,11 +1152,11 @@
     _buildTime: new Date().toISOString(),
   };
 
-  // Expose API
-  window.iSalesWidget = window.iSalesWidget || widgetAPI;
-
-  // Process any existing queue
-  if (Array.isArray(window.iSalesWidget)) {
+  // ✅ FIXED: Expose API without overwriting actual widget
+  if (!window.iSalesWidget) {
+    window.iSalesWidget = widgetAPI;
+  } else if (Array.isArray(window.iSalesWidget)) {
+    // Process existing queue if iSalesWidget is an array
     const existingQueue = window.iSalesWidget;
     window.iSalesWidget = widgetAPI;
 
@@ -1065,7 +1169,13 @@
         }
       }
     });
+  } else if (window.iSalesWidget && !window.iSalesWidget._isActualWidget) {
+    // Only overwrite if it's not the actual widget
+    window.iSalesWidget = widgetAPI;
   }
+
+  // ✅ FIXED: Store loader API separately to avoid conflicts
+  window.iSalesWidgetLoader = widgetAPI;
 
   // Auto-process queue when DOM is ready
   if (document.readyState === 'loading') {
