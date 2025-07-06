@@ -1,7 +1,7 @@
 /**
- * iSales Widget Loader v1.0.33
+ * iSales Widget Loader v1.0.34
  * Public CDN Distribution  
- * Generated: 2025-07-06T07:45:00.029Z
+ * Generated: 2025-07-06T08:01:34.466Z
  * 
  * AUTO-UPDATE STRATEGY:
  * - Loader checks for updates every 5 minutes via manifest
@@ -17,11 +17,11 @@
   'use strict';
 
   const CONFIG = {
-    VERSION: '1.0.33',
-    BUILD_HASH: '1033',
-    TIMESTAMP: 1751787900029,
-    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.js?v=1.0.33&t=1751787900029',
-    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.css?v=1.0.33&t=1751787900029',
+    VERSION: '1.0.34',
+    BUILD_HASH: '1034',
+    TIMESTAMP: 1751788894466,
+    WIDGET_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.js?v=1.0.34&t=1751788894466',
+    CSS_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/widget.css?v=1.0.34&t=1751788894466',
     VERSION_CHECK_URL: 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0/manifest.json',
     TIMEOUT: 15000,
     MAX_RETRIES: 3,
@@ -583,7 +583,7 @@
     loadReactCalendly: loadReactCalendlyIfNeeded,
     getMetrics: function() { return window.iSalesWidgetMetrics || {}; },
     _version: CONFIG.VERSION,
-    _buildTime: '2025-07-06T07:45:00.029Z',
+    _buildTime: '2025-07-06T08:01:34.466Z',
   };
 
   // Initialize global API
