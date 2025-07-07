@@ -16,7 +16,16 @@
 
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
-    VERSION: 'latest',
+    VERSION: (function () {
+      const placeholder = '1.0.46';
+      const splitPlaceholder = '{{VER' + 'SION}}';
+      return placeholder === splitPlaceholder ? 'dev' : placeholder;
+    })(), // Will be replaced during build
+    BUILD_TIME: (function () {
+      const placeholder = '2025-07-07T12:59:30.346Z';
+      const splitPlaceholder = '{{BUILD_' + 'TIME}}';
+      return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
+    })(), // Will be replaced during build
     WIDGET_CDN: (function () {
       // ✅ FIXED: Use more reliable URL detection with fallback
       try {
@@ -37,8 +46,8 @@
             }
           }
         }
-      } catch (error) {
-        console.log('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
+      } catch {
+        console.warn('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
       }
 
       // Fallback to default
@@ -63,8 +72,8 @@
             }
           }
         }
-      } catch (error) {
-        console.log('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
+      } catch {
+        console.warn('[iSales Widget Loader] Dynamic URL detection failed, using fallback');
       }
 
       return 'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/widget.css';
@@ -98,8 +107,8 @@
           }
         }
       }
-    } catch (error) {
-      console.log('[iSales Widget Loader] CDN fallback detection failed, using defaults');
+    } catch {
+      console.warn('[iSales Widget Loader] CDN fallback detection failed, using defaults');
     }
 
     return {
@@ -124,6 +133,47 @@
   let initQueue = [];
   let loadingStartTime = null;
   let customCDNConfig = null;
+
+  // Fetch polyfill for compatibility
+  const safeFetch = (function () {
+    if (typeof fetch !== 'undefined') {
+      return fetch;
+    }
+
+    // Fallback for environments without fetch
+    return function (url, options = {}) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(options.method || 'GET', url);
+
+        // Set headers
+        if (options.headers) {
+          Object.keys(options.headers).forEach((key) => {
+            xhr.setRequestHeader(key, options.headers[key]);
+          });
+        }
+
+        xhr.onload = () => {
+          const response = {
+            ok: xhr.status >= 200 && xhr.status < 300,
+            status: xhr.status,
+            statusText: xhr.statusText,
+            text: () => Promise.resolve(xhr.responseText),
+            json: () => Promise.resolve(JSON.parse(xhr.responseText)),
+          };
+          resolve(response);
+        };
+
+        xhr.onerror = () => reject(new Error('Network request failed'));
+        xhr.ontimeout = () => reject(new Error('Request timeout'));
+
+        // Set timeout
+        xhr.timeout = 10000; // 10 second timeout
+
+        xhr.send(options.body || null);
+      });
+    };
+  })();
 
   // Performance monitoring
   function trackPerformance(event, duration = null) {
@@ -336,7 +386,7 @@
         }
 
         // Sentry already exists - let the widget handle configuration
-        console.log(
+        console.warn(
           '[iSales Widget Loader] Sentry already loaded - skipping loader initialization'
         );
         return;
@@ -345,7 +395,7 @@
       // ✅ ENHANCED: Check if there's already a Sentry script loading
       const existingSentryScript = document.querySelector('script[src*="sentry"]');
       if (existingSentryScript) {
-        console.log(
+        console.warn(
           '[iSales Widget Loader] Sentry script already loading - skipping duplicate load'
         );
         return;
@@ -354,7 +404,7 @@
       // ✅ CSP-Safe: Don't load Sentry if CSP might block it
       // Check if we're in a strict CSP environment
       if (document.querySelector('meta[http-equiv="Content-Security-Policy"]')) {
-        console.log('[iSales Widget Loader] CSP detected - skipping Sentry to avoid violations');
+        console.warn('[iSales Widget Loader] CSP detected - skipping Sentry to avoid violations');
         return;
       }
 
@@ -422,9 +472,9 @@
         }
       };
 
-      script.onerror = (error) => {
+      script.onerror = (_error) => {
         // ✅ ENHANCED: Better CSP error handling
-        console.log(
+        console.warn(
           '[iSales Widget Loader] Sentry failed to load (likely CSP) - continuing without monitoring'
         );
         if (window.iSalesWidgetMetrics) {
@@ -436,7 +486,7 @@
       document.head.appendChild(script);
     } catch (error) {
       // Silent fail - Sentry is optional
-      console.log('[iSales Widget Loader] Sentry initialization skipped:', error.message);
+      console.warn('[iSales Widget Loader] Sentry initialization skipped:', error.message);
     }
   }
 
@@ -491,10 +541,10 @@
 
         // Load the main widget script
         if (!isWidgetLoaded) {
-          console.log('[iSales Widget Loader] Loading widget script from:', widgetSources[0]);
+          console.warn('[iSales Widget Loader] Loading widget script from:', widgetSources[0]);
           await loadScriptWithRetry(widgetSources);
           isWidgetLoaded = true;
-          console.log('[iSales Widget Loader] Widget script loaded successfully');
+          console.warn('[iSales Widget Loader] Widget script loaded successfully');
         }
 
         // Wait for CSS to complete (non-critical, won't block script execution)
@@ -990,13 +1040,13 @@
 
       // ✅ FIXED: Wait for actual widget to be ready with timeout and debugging
       const waitForWidget = async (maxAttempts = 50) => {
-        console.log('[iSales Widget Loader] Waiting for widget to initialize...');
+        console.warn('[iSales Widget Loader] Waiting for widget to initialize...');
 
         for (let i = 0; i < maxAttempts; i++) {
           // Debug info every 10 attempts
           if (i % 10 === 0 && i > 0) {
-            console.log(`[iSales Widget Loader] Still waiting... attempt ${i}/${maxAttempts}`);
-            console.log('Available objects:', {
+            console.warn(`[iSales Widget Loader] Still waiting... attempt ${i}/${maxAttempts}`);
+            console.warn('Available objects:', {
               iSalesWidgetCore: !!window.iSalesWidgetCore,
               iSalesWidget: !!window.iSalesWidget,
               iSalesWidgetType: typeof window.iSalesWidget,
@@ -1008,7 +1058,7 @@
 
           // Check if actual widget is loaded (not the loader's proxy)
           if (window.iSalesWidgetCore && typeof window.iSalesWidgetCore.init === 'function') {
-            console.log('[iSales Widget Loader] Found iSalesWidgetCore, initializing...');
+            console.warn('[iSales Widget Loader] Found iSalesWidgetCore, initializing...');
             return window.iSalesWidgetCore;
           }
 
@@ -1019,7 +1069,7 @@
             window.iSalesWidget.init !== init && // ✅ CRITICAL: Not our own init function
             window.iSalesWidget._isActualWidget
           ) {
-            console.log('[iSales Widget Loader] Found actual widget, initializing...');
+            console.warn('[iSales Widget Loader] Found actual widget, initializing...');
             return window.iSalesWidget;
           }
 
@@ -1085,7 +1135,7 @@
         (window.iSalesWidget?._isActualWidget ? window.iSalesWidget : null);
 
       if (actualWidget) {
-        console.log(`[iSales Widget Loader] Processing ${initQueue.length} queued commands...`);
+        console.warn(`[iSales Widget Loader] Processing ${initQueue.length} queued commands...`);
 
         // Process all queued commands
         initQueue.forEach(([command, args]) => {
@@ -1102,6 +1152,79 @@
       }
     } catch (error) {
       console.error('[iSales Widget Loader] Failed to process queue:', error);
+    }
+  }
+
+  /**
+   * Check for widget updates using safeFetch
+   */
+  async function checkForUpdates() {
+    try {
+      const manifestUrl = CONFIG.WIDGET_CDN.replace('/widget.js', '/manifest.json');
+
+      console.warn('[iSales Widget] Checking for updates from:', manifestUrl);
+
+      const response = await safeFetch(manifestUrl, {
+        method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const manifest = await response.json();
+      const latestVersion = manifest.version;
+      const currentVersion = CONFIG.VERSION;
+
+      console.warn('[iSales Widget] Version check:', {
+        current: currentVersion,
+        latest: latestVersion,
+        buildTime: CONFIG.BUILD_TIME,
+      });
+
+      if (latestVersion !== currentVersion) {
+        console.warn(
+          `[iSales Widget] New version available: ${latestVersion} (current: ${currentVersion})`
+        );
+
+        // Track update event
+        trackPerformance('update_available');
+
+        // Optional: Auto-reload if user has enabled it
+        if (window.iSalesWidgetAutoUpdate !== false) {
+          console.warn('[iSales Widget] Auto-updating to latest version...');
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        }
+
+        return {
+          hasUpdate: true,
+          currentVersion,
+          latestVersion,
+          manifest,
+        };
+      }
+
+      return {
+        hasUpdate: false,
+        currentVersion,
+        latestVersion,
+        manifest,
+      };
+    } catch (error) {
+      console.warn('[iSales Widget] Version check failed:', error.message);
+      trackPerformance('version_check_error');
+
+      return {
+        hasUpdate: false,
+        currentVersion: CONFIG.VERSION,
+        error: error.message,
+      };
     }
   }
 
@@ -1144,12 +1267,27 @@
     getMetrics: () => window.iSalesWidgetMetrics || {},
     getHealth: () => ({
       version: CONFIG.VERSION,
+      buildTime: CONFIG.BUILD_TIME,
       status: isWidgetLoaded ? 'loaded' : 'loading',
-      loadingPromise: loadingPromise,
+      loadingPromise: !!loadingPromise,
       timestamp: Date.now(),
     }),
     _version: CONFIG.VERSION,
-    _buildTime: new Date().toISOString(),
+    _buildTime: CONFIG.BUILD_TIME,
+
+    // Version checking and auto-update
+    checkForUpdates: async () => checkForUpdates(),
+    getCurrentVersion: () => CONFIG.VERSION,
+    getBuildTime: () => CONFIG.BUILD_TIME,
+
+    // Auto-update control
+    enableAutoUpdate: () => {
+      window.iSalesWidgetAutoUpdate = true;
+    },
+    disableAutoUpdate: () => {
+      window.iSalesWidgetAutoUpdate = false;
+    },
+    isAutoUpdateEnabled: () => window.iSalesWidgetAutoUpdate !== false,
   };
 
   // ✅ FIXED: Expose API without overwriting actual widget
@@ -1184,13 +1322,36 @@
     setTimeout(processQueue, 0);
   }
 
+  // Periodic version check (every 5 minutes, but not too aggressive)
+  let versionCheckInterval;
+  function startVersionCheck() {
+    // Don't check too frequently
+    if (versionCheckInterval) return;
+
+    versionCheckInterval = setInterval(
+      async () => {
+        try {
+          await checkForUpdates();
+        } catch {
+          // Silent fail - version checking is optional
+        }
+      },
+      5 * 60 * 1000
+    ); // Check every 5 minutes
+  }
+
+  // Start version checking after widget is loaded
+  setTimeout(startVersionCheck, 30000); // Wait 30 seconds before first check
+
   // Health check endpoint for monitoring
   if (typeof window !== 'undefined') {
     window.iSalesWidgetHealth = {
       version: CONFIG.VERSION,
+      buildTime: CONFIG.BUILD_TIME,
       status: 'loading',
-      loadingPromise: loadingPromise,
+      loadingPromise: !!loadingPromise,
       timestamp: Date.now(),
+      versionCheckActive: !!versionCheckInterval,
     };
   }
 })(window, document);
