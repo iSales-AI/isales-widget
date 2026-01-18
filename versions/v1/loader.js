@@ -17,12 +17,12 @@
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: (function () {
-      const placeholder = '1.0.52';
+      const placeholder = '1.0.57';
       const splitPlaceholder = '{{VER' + 'SION}}';
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2025-07-12T16:19:30.061Z';
+      const placeholder = '2026-01-18T13:46:59.092Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
@@ -880,10 +880,9 @@
       #isales-widget-root *,
       #isales-widget-root *::before,
       #isales-widget-root *::after {
-        box-sizing: border-box !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        transition: var(--isw-transition-fast) !important;
+        box-sizing: border-box; /* Removed !important to allow override if needed */
+        /* Removed margin: 0 !important - components manage their own spacing */
+        /* Removed padding: 0 !important - components manage their own spacing */
       }
       #isales-widget-root button {
         cursor: pointer !important;
