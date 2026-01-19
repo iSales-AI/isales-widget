@@ -1,6 +1,8 @@
 # 🚀 AI-First Website Widget to Convert Visitors into Sales
 
-> **Stop Losing Visitors. Start Closing Deals.** Our AI-powered widget instantly engages every visitor with intelligent chat, AI-assisted voice calls, and seamless scheduling—all without them ever leaving your site. Turn passive traffic into active, qualified leads.
+![iSales AI Widget](https://raw.githubusercontent.com/iSales-AI/isales-widget/refs/heads/main/ai_widget_github.png)
+
+> **Stop Losing Visitors. Start Closing Deals.** Our AI-powered widget instantly engages every visitor with intelligent chat, AI-assisted voice calls, and seamless scheduling or other call to action — all without them ever leaving your site. Turn passive traffic into active, qualified leads.
 
 [![iSales.ai](https://img.shields.io/badge/🌐%20Visit-isales.ai-4f46e5?style=for-the-badge&logoColor=white)](https://isales.ai)
 
@@ -93,29 +95,41 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 <script>
   window.iSalesWidget = window.iSalesWidget || [];
   window.iSalesWidget.push(['init', {
-    // Required
+    // 🔑 Required
     apiKey: 'YOUR_API_KEY',                    // ← Get yours at isales.ai
     
-    // UI Configuration
+    // 🎨 UI Configuration
     position: 'bottom-right',                  // 'bottom-right' | 'bottom-left'
     theme: 'light',                           // 'light' | 'dark' | 'auto'
     primaryColor: '#000000',                  // Hex color for branding
     locale: 'en-US',                          // Language locale (en-US, es-ES, fr-FR, etc.)
     
-    // Social Media Integration (optional)
+    // 🆕 Widget Mode - Choose your UI experience
+    widgetMode: 'classic',                    // 'classic' | 'modern' - Widget UI mode
+    
+    // 💬 Suggested Questions (up to 4 questions)
+    suggestedQuestions: [
+      'How can I get started?',
+      'What features do you offer?',
+      'Do you have a free trial?',
+      'How can I contact support?'
+    ],
+    
+    // 📱 Social Media Integration (optional)
     instagram: 'https://instagram.com/yourhandle',     // Instagram profile URL with iSales AI Chatbot Agent
     telegram: 'https://t.me/yourusername',             // Telegram chat URL with iSales AI Chatbot Agent
     whatsapp: 'https://wa.me/1234567890',              // WhatsApp number URL with iSales AI Chatbot Agent
     
-    // AI Voice Integration (optional)
+    // 🎙️ AI Voice Integration (optional)
     elevenlabs_agent_id: 'your-agent-id',             // ElevenLabs AI agent ID
     
-    // Google Calendar Integration (optional)
+    // 📅 Google Calendar Integration (optional)
     calendar_embedding_code: '<iframe src="..."></iframe>',  // Use and embed custom calendar HTML for Google Calendar, or direct links for Cal.com or Calendly or anything else
   }]);
 </script>
 <script async src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
 ```
+
 
 **Step 3:** Watch your conversions soar! 📈
 
@@ -135,12 +149,12 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 
 #### ⚡ Immediate Updates (Commit-Hash URLs)
 For instant access to the latest version without waiting for CDN cache:
-- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@46393fd/latest/loader.js`
-- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/46393fd/latest/loader.js`
-- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/46393fd/latest/loader.js`
-- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/46393fd/latest/loader.js`
+- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@3d59c89/latest/loader.js`
+- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/3d59c89/latest/loader.js`
+- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/3d59c89/latest/loader.js`
+- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/3d59c89/latest/loader.js`
 
-> **🚀 Use these URLs for immediate access to v1.0.57** - No waiting for CDN cache!
+> **🚀 Use these URLs for immediate access to v1.0.58** - No waiting for CDN cache!
 
 #### 🔄 Auto-Updating (Branch-Based URLs)
 Standard URLs that auto-update (may take 5-24 hours for JSDelivr):
@@ -151,10 +165,10 @@ Standard URLs that auto-update (may take 5-24 hours for JSDelivr):
 
 #### 📌 Version-Specific (Pinned)
 For production environments requiring specific versions:
-- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.57/loader.js`
-- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.57/loader.js`
-- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.57/loader.js`
-- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.57/loader.js`
+- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.58/loader.js`
+- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.58/loader.js`
+- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.58/loader.js`
+- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.58/loader.js`
 
 ### 🔄 CDN Comparison
 
@@ -170,8 +184,8 @@ For production environments requiring specific versions:
 Choose the right CDN strategy for your use case:
 
 ```javascript
-// ⚡ IMMEDIATE ACCESS (v1.0.57 - No waiting!)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@46393fd/latest/loader.js"></script>
+// ⚡ IMMEDIATE ACCESS (v1.0.58 - No waiting!)
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@3d59c89/latest/loader.js"></script>
 
 // 🚀 Production (Recommended - Auto-updating)
 <script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
@@ -183,7 +197,7 @@ Choose the right CDN strategy for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.57/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.58/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -198,24 +212,35 @@ Choose the right CDN strategy for your use case:
 
 ```javascript
 window.iSalesWidget.push(['init', {
-  // Required
+  // 🔑 Required
   apiKey: 'your-api-key',                     // Your iSales.ai API key
   
-  // UI Configuration
+  // 🎨 UI Configuration
   position: 'bottom-right',                   // 'bottom-right' | 'bottom-left'
   theme: 'light',                            // 'light' | 'dark' | 'auto'
   primaryColor: '#000000',                   // Hex color for branding
   locale: 'en-US',                           // Language locale (en-US, es-ES, fr-FR, etc.)
   
-  // Social Media Integration (optional)
+  // 🆕 Widget Mode - Choose your UI experience
+  widgetMode: 'classic',                     // 'classic' | 'modern' - Widget UI mode
+  
+  // 💬 Suggested Questions (up to 4 questions)
+  suggestedQuestions: [
+    'How can I get started?',
+    'What features do you offer?',
+    'Do you have a free trial?',
+    'How can I contact support?'
+  ],
+  
+  // 📱 Social Media Integration (optional)
   instagram: 'https://instagram.com/yourhandle',       // Instagram profile URL
   telegram: 'https://t.me/yourusername',               // Telegram chat URL  
   whatsapp: 'https://wa.me/1234567890',                // WhatsApp number URL
   
-  // AI Voice Integration (optional)
+  // 🎙️ AI Voice Integration (optional)
   elevenlabs_agent_id: 'your-agent-id',               // ElevenLabs AI agent ID
   
-  // Calendar Integration (optional)
+  // 📅 Calendar Integration (optional)
   calendar_embedding_code: '<iframe src="..."></iframe>',      // Custom calendar HTML, or direct links for Cal.com or Calendly or anything else
 }]);
 ```
@@ -239,6 +264,12 @@ window.iSalesWidget.push(['init', {
   theme: 'auto',
   primaryColor: '#4f46e5',
   locale: 'en-US',
+  widgetMode: 'modern',                      // Try modern UI mode
+  suggestedQuestions: [                      // Help users get started
+    'How can I get started?',
+    'What are your pricing plans?',
+    'Do you offer support?'
+  ],
   whatsapp: 'https://wa.me/1234567890',
   telegram: 'https://t.me/yoursupport',
   calendar_embedding_code: 'https://calendly.com/yourteam',
@@ -273,7 +304,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.57 (2026-01-18)
+- **Latest Release**: v1.0.58 (2026-01-19)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
