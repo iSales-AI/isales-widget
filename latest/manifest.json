@@ -1,13 +1,13 @@
 {
-  "version": "1.0.59",
+  "version": "1.0.60",
   "majorVersion": "1",
   "minorVersion": "1.0",
-  "commitHash": "d150f914901cd246e3004ca10bde49f8a54c1e3b",
-  "generated": "2026-01-20T03:57:38.165Z",
+  "commitHash": "985a79c461b47dd42ef25611e12c4b3efef5fe0b",
+  "generated": "2026-01-20T12:23:04.356Z",
   "cdn": {
     "jsdelivr": {
       "url": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js",
-      "immediateUrl": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@d150f914901cd246e3004ca10bde49f8a54c1e3b/latest/loader.js",
+      "immediateUrl": "https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@985a79c461b47dd42ef25611e12c4b3efef5fe0b/latest/loader.js",
       "recommended": true,
       "features": [
         "global-edge",
@@ -18,7 +18,7 @@
     },
     "statically": {
       "url": "https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/loader.js",
-      "immediateUrl": "https://cdn.statically.io/gh/iSales-AI/isales-widget/d150f914901cd246e3004ca10bde49f8a54c1e3b/latest/loader.js",
+      "immediateUrl": "https://cdn.statically.io/gh/iSales-AI/isales-widget/985a79c461b47dd42ef25611e12c4b3efef5fe0b/latest/loader.js",
       "recommended": true,
       "features": [
         "fast",
@@ -29,7 +29,7 @@
     },
     "githack": {
       "url": "https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js",
-      "immediateUrl": "https://raw.githack.com/iSales-AI/isales-widget/d150f914901cd246e3004ca10bde49f8a54c1e3b/latest/loader.js",
+      "immediateUrl": "https://raw.githack.com/iSales-AI/isales-widget/985a79c461b47dd42ef25611e12c4b3efef5fe0b/latest/loader.js",
       "recommended": false,
       "features": [
         "no-rate-limits",
@@ -39,7 +39,7 @@
     },
     "github": {
       "url": "https://raw.githubusercontent.com/iSales-AI/isales-widget/main/latest/loader.js",
-      "immediateUrl": "https://raw.githubusercontent.com/iSales-AI/isales-widget/d150f914901cd246e3004ca10bde49f8a54c1e3b/latest/loader.js",
+      "immediateUrl": "https://raw.githubusercontent.com/iSales-AI/isales-widget/985a79c461b47dd42ef25611e12c4b3efef5fe0b/latest/loader.js",
       "recommended": false,
       "features": [
         "direct",
@@ -65,7 +65,7 @@
   ],
   "integration": {
     "basic": "<script src=\"https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js\"></script>",
-    "immediate": "<script src=\"https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@d150f914901cd246e3004ca10bde49f8a54c1e3b/latest/loader.js\"></script>",
+    "immediate": "<script src=\"https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@985a79c461b47dd42ef25611e12c4b3efef5fe0b/latest/loader.js\"></script>",
     "fallback": "<script>\n(function() {\n  var cdns = [\n    'https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js',\n    'https://cdn.statically.io/gh/iSales-AI/isales-widget/main/latest/loader.js',\n    'https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js'\n  ];\n  var currentCdn = 0;\n  function loadFromCdn() {\n    if (currentCdn >= cdns.length) return;\n    var script = document.createElement('script');\n    script.async = true;\n    script.src = cdns[currentCdn];\n    script.onerror = function() { currentCdn++; loadFromCdn(); };\n    document.head.appendChild(script);\n  }\n  loadFromCdn();\n})();\n</script>"
   }
 }
