@@ -149,12 +149,12 @@ AI anticipates visitor needs, guides them to the right pages, resolves 80% of su
 
 #### ⚡ Immediate Updates (Commit-Hash URLs)
 For instant access to the latest version without waiting for CDN cache:
-- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@e3e5229/latest/loader.js`
-- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/e3e5229/latest/loader.js`
-- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/e3e5229/latest/loader.js`
-- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/e3e5229/latest/loader.js`
+- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@ea28bfc/latest/loader.js`
+- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/ea28bfc/latest/loader.js`
+- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/ea28bfc/latest/loader.js`
+- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/ea28bfc/latest/loader.js`
 
-> **🚀 Use these URLs for immediate access to v1.0.61** - No waiting for CDN cache!
+> **🚀 Use these URLs for immediate access to v1.0.62** - No waiting for CDN cache!
 
 #### 🔄 Auto-Updating (Branch-Based URLs)
 Standard URLs that auto-update (may take 5-24 hours for JSDelivr):
@@ -165,10 +165,10 @@ Standard URLs that auto-update (may take 5-24 hours for JSDelivr):
 
 #### 📌 Version-Specific (Pinned)
 For production environments requiring specific versions:
-- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.61/loader.js`
-- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.61/loader.js`
-- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.61/loader.js`
-- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.61/loader.js`
+- **JSDelivr**: `https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.62/loader.js`
+- **Statically**: `https://cdn.statically.io/gh/iSales-AI/isales-widget/main/versions/v1.0.62/loader.js`
+- **GitHack**: `https://raw.githack.com/iSales-AI/isales-widget/main/versions/v1.0.62/loader.js`
+- **GitHub Raw**: `https://raw.githubusercontent.com/iSales-AI/isales-widget/main/versions/v1.0.62/loader.js`
 
 ### 🔄 CDN Comparison
 
@@ -184,8 +184,8 @@ For production environments requiring specific versions:
 Choose the right CDN strategy for your use case:
 
 ```javascript
-// ⚡ IMMEDIATE ACCESS (v1.0.61 - No waiting!)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@e3e5229/latest/loader.js"></script>
+// ⚡ IMMEDIATE ACCESS (v1.0.62 - No waiting!)
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@ea28bfc/latest/loader.js"></script>
 
 // 🚀 Production (Recommended - Auto-updating)
 <script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/latest/loader.js"></script>
@@ -197,7 +197,7 @@ Choose the right CDN strategy for your use case:
 <script src="https://raw.githack.com/iSales-AI/isales-widget/main/latest/loader.js"></script>
 
 // 📦 Version-Pinned (Production)
-<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.61/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iSales-AI/isales-widget@main/versions/v1.0.62/loader.js"></script>
 ```
 
 **Performance Tips:**
@@ -304,7 +304,7 @@ window.iSalesWidget.push(['sendMessage', 'Hello!']);
 
 ## 📊 Version Information
 
-- **Latest Release**: v1.0.61 (2026-03-07)
+- **Latest Release**: v1.0.62 (2026-05-25)
 - **Next-Gen AI**: Powered by advanced language models
 - **Enterprise Ready**: 99.9% uptime, SOC2 compliant
 
