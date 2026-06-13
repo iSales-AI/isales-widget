@@ -17,12 +17,12 @@
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: (function () {
-      const placeholder = '1.0.63';
+      const placeholder = '1.0.64';
       const splitPlaceholder = '{{VER' + 'SION}}';
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2026-06-13T10:21:42.945Z';
+      const placeholder = '2026-06-13T11:22:29.225Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
