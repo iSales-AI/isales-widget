@@ -17,12 +17,12 @@
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: (function () {
-      const placeholder = '1.0.62';
+      const placeholder = '1.0.63';
       const splitPlaceholder = '{{VER' + 'SION}}';
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2026-05-25T04:46:35.474Z';
+      const placeholder = '2026-06-13T10:21:42.941Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
@@ -221,6 +221,25 @@
       script.onload = () => {
         clearTimeout(timeout);
         trackPerformance(`script_loaded_${attempt > 1 ? 'retry' : 'first'}`);
+
+        // Publish the base directory of the script that ACTUALLY loaded, so
+        // runtime code resolves sibling assets (e.g. the vendored
+        // html2canvas.min.js used for screenshots) from the same CDN origin the
+        // host page already trusts — even when a fallback CDN served the widget.
+        try {
+          const baseUrl = new URL(currentSrc, window.location.href);
+          // pathname excludes query/fragment, so this is immune to
+          // `widget.js?v=1` and `widget.js#build42` style URLs.
+          if (baseUrl.pathname.endsWith('/widget.js')) {
+            baseUrl.pathname = baseUrl.pathname.replace(/[^/]*$/, '');
+            baseUrl.search = '';
+            baseUrl.hash = '';
+            window.__iSalesWidgetBase = baseUrl.href;
+          }
+        } catch {
+          // Non-fatal: runtime falls back to scanning the widget <script> tag.
+        }
+
         resolve();
       };
 
