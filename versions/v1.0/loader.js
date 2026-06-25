@@ -17,12 +17,12 @@
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: (function () {
-      const placeholder = '1.0.64';
+      const placeholder = '1.0.65';
       const splitPlaceholder = '{{VER' + 'SION}}';
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2026-06-13T11:22:29.223Z';
+      const placeholder = '2026-06-25T08:49:46.782Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
@@ -1182,12 +1182,13 @@
 
       console.warn('[iSales Widget] Checking for updates from:', manifestUrl);
 
-      const response = await safeFetch(manifestUrl, {
+      // Cache-bust via query param instead of Cache-Control/Pragma headers.
+      // Those headers make the request "non-simple" and trigger a CORS preflight
+      // (OPTIONS) that the CDN worker must explicitly allow; the query param
+      // achieves the same freshness with a plain simple GET (no preflight).
+      const bust = manifestUrl.includes('?') ? '&' : '?';
+      const response = await safeFetch(`${manifestUrl}${bust}t=${Date.now()}`, {
         method: 'GET',
-        headers: {
-          'Cache-Control': 'no-cache',
-          Pragma: 'no-cache',
-        },
       });
 
       if (!response.ok) {
