@@ -17,12 +17,12 @@
   // Configuration - stable CDN URLs to prevent issues
   const CONFIG = {
     VERSION: (function () {
-      const placeholder = '1.0.65';
+      const placeholder = '1.0.67';
       const splitPlaceholder = '{{VER' + 'SION}}';
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2026-06-25T08:49:46.784Z';
+      const placeholder = '2026-06-29T12:16:04.607Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
@@ -432,7 +432,7 @@
         if (window.Sentry) {
           try {
             window.Sentry.init({
-              dsn: 'https://a2bfb117449c28e80480c0becf8586b1@o1095910.ingest.us.sentry.io/4509562871087104',
+              dsn: 'https://0eb219e66f0cf24cc925bb03e51b8661@o1095910.ingest.us.sentry.io/4511648628801536',
               environment: 'production',
               release: CONFIG.VERSION,
               sampleRate: 1.0,

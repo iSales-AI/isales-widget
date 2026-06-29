@@ -22,7 +22,7 @@
       return placeholder === splitPlaceholder ? 'dev' : placeholder;
     })(), // Will be replaced during build
     BUILD_TIME: (function () {
-      const placeholder = '2026-06-29T12:16:04.606Z';
+      const placeholder = '2026-06-29T12:16:04.602Z';
       const splitPlaceholder = '{{BUILD_' + 'TIME}}';
       return placeholder === splitPlaceholder ? new Date().toISOString() : placeholder;
     })(), // Will be replaced during build
